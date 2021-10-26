@@ -3,4 +3,7 @@
 *.DS_Store
 .idea
 test/
-./test
+test/**
+__pycache__/
+test/data.py
+test/test2.py
