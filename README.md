@@ -17,7 +17,7 @@ Simple CLI to upload ortho and label files in linux and windows to Postgres.
 * For both windows and linux versions, first run upload_ortho_data_sqlalchemy_... file
 * Then run upload_label_data_sqlalchemy_... file in valid operating system
 ```
-code blocks for commands
+python _filename_
 ```
 
 
