@@ -26,6 +26,6 @@ python _filename_
 
 
 * 0.1
-    * Initial working version with windows and linux alternatives, windows is the more stable version 
+    * Initial working version with windows and linux alternatives, windows is more stable version 
 
 
