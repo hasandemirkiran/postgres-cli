@@ -1,7 +1,4 @@
-import sqlalchemy as db
+deneme_list = [('a', 'b' , 'c'),('1', '2' , '3'),('t', 'y' , 'u'),('v', 'n' , 'm'), ]
 
-engine = db.create_engine('postgresql://ocell:PdUfpcWSYh4y3Cg@labeldb.cxitxpc33tur.eu-central-1.rds.amazonaws.com:5432/hasan_test')
-connection = engine.connect()
-metadata = db.MetaData()
-raster_info = db.Table('raster_info', metadata, autoload=True, autoload_with=engine)
-query = db.select([raster_info]).where(raster_info.columns.sex == 'F')
+for a,b,c in deneme_list:
+    print(a)
