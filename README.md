@@ -1,6 +1,6 @@
-# Project Title
+# Postgres CLI
 
-Postgres CLI
+Postgres CLI to upload Postgis/PostgreSQL
 
 ## Description
 
