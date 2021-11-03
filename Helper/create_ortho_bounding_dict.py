@@ -35,8 +35,10 @@ def get_bounds_of_orthos(ortho_url_list):
                 raster_bounds.append(pt[1])
                 raster_bounds.append(pt[0])
         else:
-            raster_bounds.append((raster_bounding_box[0], raster_bounding_box[1]))
-            raster_bounds.append((raster_bounding_box[2], raster_bounding_box[3]))
+            raster_bounds.append(raster_bounding_box[0])
+            raster_bounds.append(raster_bounding_box[1])
+            raster_bounds.append(raster_bounding_box[2])
+            raster_bounds.append(raster_bounding_box[3])
 
         ortho_url_bounds_dict[ortho_url] = raster_bounds
 
