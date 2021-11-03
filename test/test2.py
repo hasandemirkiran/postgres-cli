@@ -1,4 +1,12 @@
-deneme_list = [('a', 'b' , 'c'),('1', '2' , '3'),('t', 'y' , 'u'),('v', 'n' , 'm'), ]
+import json
+import geojson 
+import uuid 
 
-for a,b,c in deneme_list:
-    print(a)
+print(uuid.uuid4().int & (1<<31)-1)
+
+
+
+
+
+
+    

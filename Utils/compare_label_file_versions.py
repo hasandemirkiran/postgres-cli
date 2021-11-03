@@ -39,11 +39,11 @@ def compare_2_files(URL_1, URL_2):
         if counter_1 == len(tile_list_1) and counter_2 == len(tile_list_2):
             print ('They are completely different files.')
         else:
-            print ('They are different files but there is an intersection.')  
+            print ('They are different files but there is an intersection. ', len(tile_list_1)-counter_1, ' is the number of intersection tiles. Number of tile in the firs and second file: ', len(tile_list_1),'|',  len(tile_list_2) )   
 
 
 
 if __name__ == "__main__":
-    URL_1 = ''
-    URL_2 = ''
+    URL_1 = '\\\\192.168.37.4\\ml\\datasets\\forestry\\Meppen\\labels_no_bad_quality.json'
+    URL_2 = '\\\\192.168.37.4\\ml\\datasets\\forestry\\Meppen\\labels_from_qgis_elenoren_only.json'
     compare_2_files(URL_1,URL_2)
