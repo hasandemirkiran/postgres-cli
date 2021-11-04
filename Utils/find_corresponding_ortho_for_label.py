@@ -35,29 +35,29 @@ def get_raster_bounds(url):
     return raster_bounds
 
 
-def compare_one_label_one_ortho_file(raster_bounds, label_bbox_list):
-    print('raster_bounds ', raster_bounds)
+def compare_one_label_one_ortho_file(raster_bounds, label_bbox_list, url):
+    # print('raster_bounds ', raster_bounds)
     total_bboxs = len(label_bbox_list)
     verified = 0
     for bbox in label_bbox_list:
         if bbox[2]<=raster_bounds[2] and bbox[2]>=raster_bounds[0] and  bbox[3]<=raster_bounds[3] and bbox[3]>=raster_bounds[1]:
             verified += 1
     if verified == total_bboxs:
-        print('All of the bounding boxes are in this raster file.')
-    else:
-        print(total_bboxs-verified, ' out of ', total_bboxs, ' bounding boxes are not in this raster file.')
+        print('All of the bounding boxes are in this raster file: ', url )
+    elif verified != 0:
+        print(verified, ' out of ', total_bboxs, ' tile are in this raster file: ', url)
 
     return verified
 
 def find_most_matched_ortho(label_bbox_list):
 
-    with open(r"Helper\ortho_url_bounds_dict.txt") as f:
+    with open(r"Utils\ortho_url_bounds_dict.txt") as f:
         data = f.read()
     ortho_url_bounds_dict = json.loads(data)
     ortho_verified_dict = {}
     for url in ortho_url_bounds_dict:
         raster_bounds = ortho_url_bounds_dict[url]
-        verified = compare_one_label_one_ortho_file(raster_bounds, label_bbox_list)
+        verified = compare_one_label_one_ortho_file(raster_bounds, label_bbox_list, url)
         ortho_verified_dict[url] = verified
     
     return ortho_verified_dict
@@ -69,7 +69,7 @@ if __name__ == "__main__":
     # raster_bounds = get_raster_bounds(ortho_url)
     # print(raster_bounds)
 
-    label_url = '\\\\192.168.37.4\\ml\\datasets\\forestry\\Meppen\\labels_no_bad_quality.json'
+    label_url = '\\\\192.168.37.4\\ml\\datasets\\forestry\\Wellenburg\\label_Wellenburg_Christian_v1.json'
     label_bbox_list = get_label_bboxes(label_url )
 
     # compare_one_label_one_ortho_file(raster_bounds, label_bbox_list)
