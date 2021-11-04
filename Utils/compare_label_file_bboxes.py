@@ -44,6 +44,6 @@ def compare_2_files(URL_1, URL_2):
 
 
 if __name__ == "__main__":
-    URL_1 = '\\\\192.168.37.4\\ml\\datasets\\forestry\\Meppen\\labels_no_bad_quality.json'
-    URL_2 = '\\\\192.168.37.4\\ml\\datasets\\forestry\\Meppen\\labels_from_qgis_elenoren_only.json'
+    URL_1 = '\\\\192.168.37.4\\ml\\datasets\\forestry\\Fugger\\label_Wellenburg_David_Christian_merged_Hasan_v1__merged__david_label_v2__Hasan.json'
+    URL_2 = '\\\\192.168.37.4\\ml\\datasets\\forestry\\Wellenburg\\label_Wellenburg_Christian_v1.json'
     compare_2_files(URL_1,URL_2)
