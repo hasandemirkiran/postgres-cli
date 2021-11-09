@@ -87,7 +87,7 @@ def get_data_geoJson(url_tuple):
     # gpd.GeoDataFrame({'id': id, 'class_id': class_series_ids,'geom':  feature_area_series,'label_id': bbox_id_series})
 
 
-# Funtion to pick necessary data from ortho_last
+# Function to pick necessary data from ortho_last
 def pick_from_ortho_dict(ortho_last):
     ortho_list_to_upload = []
 
