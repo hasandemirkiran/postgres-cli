@@ -44,6 +44,6 @@ def compare_2_files(URL_1, URL_2):
 
 
 if __name__ == "__main__":
-    URL_1 = '\\\\192.168.37.4\\ml\\datasets\\forestry\\Fugger\\label_Wellenburg_David_Christian_merged_Hasan_v1__merged__david_label_v2__Hasan.json'
-    URL_2 = '\\\\192.168.37.4\\ml\\datasets\\forestry\\Wellenburg\\label_Wellenburg_Christian_v1.json'
+    URL_1 = '\\\\192.168.37.4\\ml\\datasets\\forestry\\CenterForst_Magdeburg\\center_label_v1.json'
+    URL_2 = '\\\\192.168.37.4\\ml\\datasets\\forestry\\CenterForst_Magdeburg\\class_label_v2.json'
     compare_2_files(URL_1,URL_2)
