@@ -25,10 +25,10 @@ def merge_2_files(URL_1, URL_2):
             else:
                 pass
 
-    with open(r'label_Wellenburg_David_Christian_merged_Hasan_v1__merged__david_label_v2__Hasan.json', 'w') as convert_file:
+    with open(r'center_label_v1__class_label_v2__merged__Hasan.json', 'w') as convert_file:
         convert_file.write(json.dumps(data))
 
 if __name__ == "__main__":
-    URL_1 = '\\\\192.168.37.4\\ml\\datasets\\forestry\\Fugger\\label_Wellenburg_David_Christian_merged_Hasan_v1.json'
-    URL_2 = '\\\\192.168.37.4\\ml\\datasets\\forestry\\Wellenburg\\david_label_v2.json'
+    URL_1 = '\\\\192.168.37.4\\ml\\datasets\\forestry\\CenterForst_Magdeburg\\center_label_v1.json'
+    URL_2 = '\\\\192.168.37.4\\ml\\datasets\\forestry\\CenterForst_Magdeburg\\class_label_v2.json'
     merge_2_files(URL_1,URL_2)
