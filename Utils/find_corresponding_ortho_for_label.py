@@ -69,7 +69,7 @@ if __name__ == "__main__":
     # raster_bounds = get_raster_bounds(ortho_url)
     # print(raster_bounds)
 
-    label_url = '\\\\192.168.37.4\\ml\\datasets\\forestry\\CenterForst_Magdeburg\\class_label_v2.json'
+    label_url = '\\\\192.168.37.4\\gis_data\\customers\\Blauwald\\Duttenstein\\image_processing_data\\labels\\Label__Duttenstein__david__v1.geojson'
     label_bbox_list = get_label_bboxes(label_url )
 
     # compare_one_label_one_ortho_file(raster_bounds, label_bbox_list)
