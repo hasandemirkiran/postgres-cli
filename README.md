@@ -6,6 +6,9 @@ Postgres CLI to upload Postgis/PostgreSQL
 
 Simple CLI to upload ortho and label files in linux and windows into Postgres.
 
+Here is the database diagram:
+![Postgres_Database](/uploads/0abfd421e0e51720728d0b2fbb539b7b/Postgres_Database.png)
+
 ## Getting Started
 
 ### Dependencies
