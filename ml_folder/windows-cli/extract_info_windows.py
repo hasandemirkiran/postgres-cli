@@ -10,12 +10,13 @@ from shapely.geometry import Polygon, Point, box
 from sqlalchemy import *
 from sqlalchemy.sql.expression import label
 import json
+import itertools
 
-def get_data_geoJson(url_tuple):
+def get_data_geoJson(url_tuple, id_label_session_iter, id_label_iter, id_label_feature_iter):
 
     url = url_tuple[0]
     
-    class_dict = {'Douglas': 0, 'Fir': 1, 'Larch': 2, 'Spruce': 3, 'Pine': 4, 'Leaved Tree': 5, 'Dead Tree': 6, 'Leaved Tree': 7, 'Background': 8, 'Unknown': 9, 'done': 10, 'Young Tree': 11, 'Dead Pine': 12, 'Douglas fir': 13, 'healthy': 14, 'dead': 15, 'affected': 16, 'no class': 17}  
+    class_dict = {'Douglas': 0, 'Fir': 1, 'Larch': 2, 'Spruce': 3, 'Pine': 4, 'Leaved Tree': 5, 'Dead Tree': 6, 'Young Tree': 7, 'Background': 8, 'Unknown': 9, 'done': 10, 'Dead Pine': 11, 'Douglas fir': 12, 'healthy': 13, 'dead': 14, 'affected': 15, 'no class': 16}  
 
     with open(url) as f:
         data = json.load(f)
@@ -23,14 +24,17 @@ def get_data_geoJson(url_tuple):
 
     # --- label_session table entries ---
     label_session_table_id = []
-    label_session_table_id.append(uuid.uuid4().int & (1<<31)-1)
-    raster_info_id = []
-    raster_info_id.append(url_tuple[1])
-    label_session_table_df = gpd.GeoDataFrame(list(zip(label_session_table_id, raster_info_id)), columns =['id', 'raster_info_id'])
+    label_session_table_id.append(next(id_label_session_iter))
+    label_session_table_raster_info_id = []
+    label_session_table_raster_info_id.append(url_tuple[1])
+    label_session_table_name = []
+    name = url.split(r'\\')[-1].split('_')[1]
+    label_session_table_name.append(name)
+    label_session_table_df = gpd.GeoDataFrame(list(zip(label_session_table_id, label_session_table_name,  label_session_table_raster_info_id)), columns =['id','name', 'raster_info_id'])
 
     # --- label table entries ---
     num_of_bbox = len(json_df['bbox'])
-    label_table_id = [uuid.uuid4().int & (1<<31)-1 for x in range(num_of_bbox)]
+    label_table_id = [next(id_label_iter) for x in range(num_of_bbox)]
     label_table_session_id = [label_session_table_id[0] for x in range(num_of_bbox)]
 
     label_table_label_area_EPSG4326 = json_df['bbox']
@@ -70,7 +74,7 @@ def get_data_geoJson(url_tuple):
                 label_feature_class_list.append(feature['properties']['class'])
                 label_feature_feature_area_list.append(feature['geometry']['coordinates'])
 
-    label_feature_table_id = [uuid.uuid4().int & (1<<40)-1 for x in range(len(label_feature_class_list))]
+    label_feature_table_id = [next(id_label_feature_iter) for x in range(len(label_feature_class_list))]
     label_feature_table_label_id = [list_id[label_table_label_area_EPSG4326_copy.index(bbox_4326)] for bbox_4326 in label_feature_bbox_list]
     label_feature_table_feature_area =  [Point(x[0],x[1]) for x in label_feature_feature_area_list]
     label_feature_table_class_id = [class_dict[x] for x in label_feature_class_list]
@@ -131,9 +135,18 @@ def pick_all_geojson():
                         ('\\\\192.168.37.4\\ml\\datasets\\forestry\\Toering\\labels_v1_plus_v2__ortho__Gutenzell-0__splitted__Hasan.json', 241077077), # I have splitted these 2 files 
                         ('\\\\192.168.37.4\\ml\\datasets\\forestry\\Toering\\labels_v1_plus_v2__ortho__Gutenzell-1__splitted__Hasan.json', 588133272)]
 
+    id_label_session_iter = itertools.count(21)
+    next(id_label_session_iter)
+
+    id_label_iter = itertools.count(1030)
+    next(id_label_iter)
+
+    id_label_feature_iter = itertools.count(41435)
+    next(id_label_feature_iter)
+
     label_df_list = []
     for url_tuple in label_last_list:
-        label_session_table_df, label_table_df, label_feature_table_df = get_data_geoJson(url_tuple)
+        label_session_table_df, label_table_df, label_feature_table_df = get_data_geoJson(url_tuple, id_label_session_iter, id_label_iter, id_label_feature_iter)
         label_df_list.append((label_session_table_df, label_table_df, label_feature_table_df))
     
     return label_df_list
@@ -141,4 +154,4 @@ def pick_all_geojson():
 
 if __name__ == "__main__":
     label_df_list = pick_all_geojson()
-    # pprint.pprint(label_df_list)
+    pprint.pprint(label_df_list)
