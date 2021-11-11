@@ -10,7 +10,7 @@ from geopandas import GeoSeries
 from shapely.geometry import Polygon
 
 # Creating SQLAlchemy's engine to use
-engine = create_engine('postgresql://ocell:PdUfpcWSYh4y3Cg@labeldb.cxitxpc33tur.eu-central-1.rds.amazonaws.com:5432/hasan_test')
+engine = create_engine('postgresql://postgres:PdUfpcWSYh4y3Cg@geodb.c6pejgcymcj0.eu-central-1.rds.amazonaws.com:5432/postgres_hasan')
 path = '\\\\192.168.37.4\\gis_data'
 
 
@@ -20,7 +20,7 @@ for label_session_table_gdf, label_table_gdf, label_feature_table_gdf in label_d
     label_session_table_gdf['session_area'] = label_session_table_gdf['geom'].apply(lambda x: WKTElement(x.wkt, srid=4326))
     label_session_table_gdf.drop('geom', 1, inplace=True)
     label_session_table_gdf.to_sql('label_session', engine, if_exists='append', index=False, dtype={'session_area': Geometry('POINT', srid= 4326)})
-
+ 
     # upload label_table 
     label_table_gdf['label_area_EPSG4326'] = label_table_gdf['geom_EPSG4326'].apply(lambda x: WKTElement(x.wkt, srid=4326))
     label_table_gdf['label_area_EPSG3857'] = label_table_gdf['geom_EPSG3857'].apply(lambda x: WKTElement(x.wkt, srid=4326))
