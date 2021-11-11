@@ -10,7 +10,7 @@ from geopandas import GeoSeries
 from shapely.geometry import Polygon
 
 # Creating SQLAlchemy's engine to use
-engine = create_engine('postgresql://postgres:PdUfpcWSYh4y3Cg@geodb.c6pejgcymcj0.eu-central-1.rds.amazonaws.com:5432/postgres')
+engine = create_engine('postgresql://postgres:PdUfpcWSYh4y3Cg@geodb.c6pejgcymcj0.eu-central-1.rds.amazonaws.com:5432/postgres_hasan')
 path = '\\\\192.168.37.4\\gis_data'
 
 
