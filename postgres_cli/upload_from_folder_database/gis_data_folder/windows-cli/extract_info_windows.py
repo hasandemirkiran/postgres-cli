@@ -164,8 +164,8 @@ def pick_all_geojson():
                             ('\\\\192.168.37.4\\gis_data\\customers\\ToeringJettenbach\\Winhoering\\image_processing_data\\labels\\Label__Winhoering_3____v4.geojson', 1162882951)]},
         'VonPfuel': {
             'Tuessling':   [('\\\\192.168.37.4\\gis_data\\customers\\VonPfuel\\Tuessling\\image_processing_data\\labels\\Label__Tuessling_1__Christian__v3.geojson', 982951984)]},
-        # 'Wallerstein': {
-        #     'Dist_12_13': [('\\\\192.168.37.4\\gis_data\\customers\\Wallerstein\\Dist_12_13\\image_processing_data\\labels\\Label__Dist_12_13__winter__v2.geojson', 993280764)]} # There is no done point, we cannot convert it with the bboxes version
+         'Wallerstein': {
+             'Dist_12_13': [('\\\\192.168.37.4\\gis_data\\customers\\Wallerstein\\Dist_12_13\\image_processing_data\\labels\\Label__Dist_12_13__winter__v2.geojson', 993280764)]} 
         }
 
     id_label_session_iter = itertools.count()
