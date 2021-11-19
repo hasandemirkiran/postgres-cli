@@ -120,56 +120,9 @@ ortho_last_dic = {'ArenbergMeppen': {'Eleonorenwald': ['/Volumes/gis_data/custom
                                 '/Volumes/gis_data/customers/Wallerstein/Dist_30_31/raster/Orthos/Ortho__Dist_30_31__65mm__310mm__2020_07_31.gpkg']}}
 
 
-# ortho_info_list = [] 
-
-# for customer in ortho_last_dic:
-#     for region in ortho_last_dic[customer]:
-#         for url in list(ortho_last_dic[customer][region]):
-#             x = url.split('/')
-#             y = x[-1].split('__')
-#             region_part = y[1]
-#             if len(y) == 5 and y[-1] != 'CIR.gpkg':
-#                 gsd = y[2]
-#                 resolution = y[3]
-#                 date = y[4].split('.')[0]
-#             else:
-#                 if int(y[2][:-2]) < 100:
-#                     gsd = y[2]
-#                     resolution = -1
-#                 else:
-#                     gsd = -1
-#                     resolution = y[2]
-
-#                 date = y[3].split('.')[0]
-#             extn = x[-1].split('.')[-1]
-
-
-#             info = {
-#                 'customer' : customer, 
-#                 'region' : region,
-#                 'region_part' : region_part,
-#                 'gsd' : gsd,
-#                 'resolution' : resolution,
-#                 'date' : date,
-#                 'extn' : extn
-#             }
-#             ortho_info_list.append(info)
-
-
-# pprint.pprint(ortho_info_list)
-
-            # print(x)
-            # print(y)
-
-                
-# pprint.pprint(ortho_last_dic)
-
-
-
-
-label_last_dict = {'Blauwald': {'Duttenstein': ['/Volumes/gis_data/customers/Blauwald/Duttenstein/image_processing_data/labels/Label__Duttenstein__david__v1.geojson',
-                              '/Volumes/gis_data/customers/Blauwald/Duttenstein/image_processing_data/labels/Label__Duttenstein__felix__v1.geojson',
-                              '/Volumes/gis_data/customers/Blauwald/Duttenstein/image_processing_data/labels/Label__Duttenstein__sarah__v1.geojson']},
+label_last_dict = {'Blauwald': {'Duttenstein': ['/Volumes/gis_data/customers/Blauwald/Duttenstein/image_processing_data/label/Label__Duttenstein__david__v1.geojson',
+                              '/Volumes/gis_data/customers/Blauwald/Duttenstein/image_processing_data/label/Label__Duttenstein__felix__v1.geojson',
+                              '/Volumes/gis_data/customers/Blauwald/Duttenstein/image_processing_data/label/Label__Duttenstein__sarah__v1.geojson']},
  'Fugger': {'Wellenburg': ['/Volumes/gis_data/customers/Fugger/Wellenburg/image_processing_data/labels/Label__Wellenburg__incl_fir__v2.geojson',
                            '/Volumes/gis_data/customers/Fugger/Wellenburg/image_processing_data/labels/Label__Wellenburg__v2.geojson']},
  'GrafSpreti': {'Lotzbeck': ['/Volumes/gis_data/customers/GrafSpreti/Lotzbeck/image_processing_data/labels/Label__Lotzbeck_1__luca__v1.geojson',
@@ -202,3 +155,204 @@ label_last_dict = {'Blauwald': {'Duttenstein': ['/Volumes/gis_data/customers/Bla
                             '/Volumes/gis_data/customers/VonPfuel/Tuessling/image_processing_data/labels/Label__Tuessling_1__Christian__v3.geojson']},
  'Wallerstein': {'Dist_12_13': ['/Volumes/gis_data/customers/Wallerstein/Dist_12_13/image_processing_data/labels/Label__Dist_12_13__winter__v2.geojson']}}
 
+
+
+
+
+# ==============================================================================================================================================================================================================================================
+
+
+
+
+ortho_last_dic_windows = {'ArenbergMeppen': {'Eleonorenwald': ['192.168.37.4\\gis_data\\customers\\ArenbergMeppen\\Eleonorenwald\\raster\\Orthos\\Ortho__Eleonorenwald_801_836__75mm__1200mm__2020_06_24.gpkg',
+                                      '192.168.37.4\\gis_data\\customers\\ArenbergMeppen\\Eleonorenwald\\raster\\Orthos\\Ortho__Eleonorenwald_851_857__80mm__1280mm__2020_06_24.gpkg'],  
+                    'Engelbertswald': ['192.168.37.4\\gis_data\\customers\\ArenbergMeppen\\Engelbertswald\\raster\\Orthos\\Ortho__Engelbertswald_101_106__66mm__1005mm__2020_08_06.gpkg',
+                                       '192.168.37.4\\gis_data\\customers\\ArenbergMeppen\\Engelbertswald\\raster\\Orthos\\Ortho__Engelbertswald_101_106__66mm__264mm__2020_08_06.gpkg', 
+                                       '192.168.37.4\\gis_data\\customers\\ArenbergMeppen\\Engelbertswald\\raster\\Orthos\\Ortho__Engelbertswald_121_125__65mm__1005mm__2020_08_06.gpkg',
+                                       '192.168.37.4\\gis_data\\customers\\ArenbergMeppen\\Engelbertswald\\raster\\Orthos\\Ortho__Engelbertswald_121_125__65mm__262mm__2020_08_06.gpkg', 
+                                       '192.168.37.4\\gis_data\\customers\\ArenbergMeppen\\Engelbertswald\\raster\\Orthos\\Ortho__Engelbertswald_131__79mm__1264mm__2020_06_24.gpkg',    
+                                       '192.168.37.4\\gis_data\\customers\\ArenbergMeppen\\Engelbertswald\\raster\\Orthos\\Ortho__Engelbertswald_141_142__73mm__1168mm__2020_06_24.gpkg',
+                                       '192.168.37.4\\gis_data\\customers\\ArenbergMeppen\\Engelbertswald\\raster\\Orthos\\Ortho__Engelbertswald_151_164__65mm__1005mm__2020_08_06.gpkg',
+                                       '192.168.37.4\\gis_data\\customers\\ArenbergMeppen\\Engelbertswald\\raster\\Orthos\\Ortho__Engelbertswald_151_164__65mm__262mm__2020_08_06.gpkg', 
+                                       '192.168.37.4\\gis_data\\customers\\ArenbergMeppen\\Engelbertswald\\raster\\Orthos\\Ortho__Engelbertswald_171_173__66mm__1006mm__2020_08_06.gpkg',
+                                       '192.168.37.4\\gis_data\\customers\\ArenbergMeppen\\Engelbertswald\\raster\\Orthos\\Ortho__Engelbertswald_171_173__66mm__265mm__2020_08_06.gpkg',
+                                       '192.168.37.4\\gis_data\\customers\\ArenbergMeppen\\Engelbertswald\\raster\\Orthos\\Ortho__Engelbertswald_181__64mm__1020mm__2020_08_06.gpkg',
+                                       '192.168.37.4\\gis_data\\customers\\ArenbergMeppen\\Engelbertswald\\raster\\Orthos\\Ortho__Engelbertswald_181__64mm__255mm__2020_08_06.gpkg',
+                                       '192.168.37.4\\gis_data\\customers\\ArenbergMeppen\\Engelbertswald\\raster\\Orthos\\Ortho__Engelbertswald_191_201__64mm__1030mm__2020_08_06.gpkg',
+                                       '192.168.37.4\\gis_data\\customers\\ArenbergMeppen\\Engelbertswald\\raster\\Orthos\\Ortho__Engelbertswald_191_201__64mm__256mm__2020_08_06.gpkg',
+                                       '192.168.37.4\\gis_data\\customers\\ArenbergMeppen\\Engelbertswald\\raster\\Orthos\\Ortho__Engelbertswald_220_230__64mm__1003mm__2020_08_06.gpkg',
+                                       '192.168.37.4\\gis_data\\customers\\ArenbergMeppen\\Engelbertswald\\raster\\Orthos\\Ortho__Engelbertswald_220_230__64mm__257mm__2020_08_06.gpkg'],
+                    'Hedwigenwald': ['192.168.37.4\\gis_data\\customers\\ArenbergMeppen\\Hedwigenwald\\raster\\Orthos\\Ortho__Hedwigenwald_601__76mm__1216mm__2020_06_24.gpkg',
+                                     '192.168.37.4\\gis_data\\customers\\ArenbergMeppen\\Hedwigenwald\\raster\\Orthos\\Ortho__Hedwigenwald_611_626__64mm__1003mm__2020_08_06.gpkg',
+                                     '192.168.37.4\\gis_data\\customers\\ArenbergMeppen\\Hedwigenwald\\raster\\Orthos\\Ortho__Hedwigenwald_611_626__64mm__264mm__2020_08_06.gpkg',
+                                     '192.168.37.4\\gis_data\\customers\\ArenbergMeppen\\Hedwigenwald\\raster\\Orthos\\Ortho__Hedwigenwald_631_647__80mm__1280mm__2020_06_24.gpkg',
+                                     '192.168.37.4\\gis_data\\customers\\ArenbergMeppen\\Hedwigenwald\\raster\\Orthos\\Ortho__Hedwigenwald_661__61mm__123mm__2020_10_23.gpkg',
+                                     '192.168.37.4\\gis_data\\customers\\ArenbergMeppen\\Hedwigenwald\\raster\\Orthos\\Ortho__Hedwigenwald_661__61mm__984mm__2020_10_23.gpkg',
+                                     '192.168.37.4\\gis_data\\customers\\ArenbergMeppen\\Hedwigenwald\\raster\\Orthos\\Ortho__Hedwigenwald_681__63mm__1010mm__2020_10_23.gpkg',
+                                     '192.168.37.4\\gis_data\\customers\\ArenbergMeppen\\Hedwigenwald\\raster\\Orthos\\Ortho__Hedwigenwald_681__63mm__126mm__2020_10_23.gpkg',
+                                     '192.168.37.4\\gis_data\\customers\\ArenbergMeppen\\Hedwigenwald\\raster\\Orthos\\Ortho__Hedwigenwald_691__63mm__1014mm__2020_10_23.gpkg',
+                                     '192.168.37.4\\gis_data\\customers\\ArenbergMeppen\\Hedwigenwald\\raster\\Orthos\\Ortho__Hedwigenwald_691__63mm__127mm__2020_10_23.gpkg',
+                                     '192.168.37.4\\gis_data\\customers\\ArenbergMeppen\\Hedwigenwald\\raster\\Orthos\\Ortho__Hedwigenwald_701_703__66mm__1058mm__2020_10_26.gpkg',
+                                     '192.168.37.4\\gis_data\\customers\\ArenbergMeppen\\Hedwigenwald\\raster\\Orthos\\Ortho__Hedwigenwald_701_703__66mm__132mm__2020_10_26.gpkg',
+                                     '192.168.37.4\\gis_data\\customers\\ArenbergMeppen\\Hedwigenwald\\raster\\Orthos\\Ortho__Hedwigenwald_711_720__80mm__1280mm__2020_06_24.gpkg'],
+                    'Karlswald': ['192.168.37.4\\gis_data\\customers\\ArenbergMeppen\\Karlswald\\raster\\Orthos\\Ortho__Meyerei_301__65mm__1037mm__2020_10_26.gpkg',
+                                  '192.168.37.4\\gis_data\\customers\\ArenbergMeppen\\Karlswald\\raster\\Orthos\\Ortho__Meyerei_301__65mm__130mm__2020_10_26.gpkg',
+                                  '192.168.37.4\\gis_data\\customers\\ArenbergMeppen\\Karlswald\\raster\\Orthos\\Ortho__Meyerei_311_323__65mm__1037mm__2020_10_26.gpkg',
+                                  '192.168.37.4\\gis_data\\customers\\ArenbergMeppen\\Karlswald\\raster\\Orthos\\Ortho__Meyerei_311_323__65mm__130mm__2020_10_26.gpkg',
+                                  '192.168.37.4\\gis_data\\customers\\ArenbergMeppen\\Karlswald\\raster\\Orthos\\Ortho__Meyerei_331__62mm__1000mm__2020_10_23.gpkg',
+                                  '192.168.37.4\\gis_data\\customers\\ArenbergMeppen\\Karlswald\\raster\\Orthos\\Ortho__Meyerei_331__62mm__125mm__2020_10_23.gpkg',
+                                  '192.168.37.4\\gis_data\\customers\\ArenbergMeppen\\Karlswald\\raster\\Orthos\\Ortho__Meyerei_341__82mm__1312mm__2020_06_24.gpkg',
+                                  '192.168.37.4\\gis_data\\customers\\ArenbergMeppen\\Karlswald\\raster\\Orthos\\Ortho__Meyerei_351_354__63mm__1010mm__2020_08_06.gpkg',
+                                  '192.168.37.4\\gis_data\\customers\\ArenbergMeppen\\Karlswald\\raster\\Orthos\\Ortho__Meyerei_351_354__63mm__253mm__2020_08_06.gpkg',
+                                  '192.168.37.4\\gis_data\\customers\\ArenbergMeppen\\Karlswald\\raster\\Orthos\\Ortho__Meyerei_371_384__65mm__1004mm__2020_08_06.gpkg',
+                                  '192.168.37.4\\gis_data\\customers\\ArenbergMeppen\\Karlswald\\raster\\Orthos\\Ortho__Meyerei_371_384__65mm__261mm__2020_08_06.gpkg',
+                                  '192.168.37.4\\gis_data\\customers\\ArenbergMeppen\\Karlswald\\raster\\Orthos\\Ortho__Meyerei_401_422__64mm__1022mm__2020_10_23.gpkg',
+                                  '192.168.37.4\\gis_data\\customers\\ArenbergMeppen\\Karlswald\\raster\\Orthos\\Ortho__Meyerei_401_422__64mm__128mm__2020_10_23.gpkg',
+                                  '192.168.37.4\\gis_data\\customers\\ArenbergMeppen\\Karlswald\\raster\\Orthos\\Ortho__Meyerei_431_435__70mm__1114mm__2020_10_23.gpkg',
+                                  '192.168.37.4\\gis_data\\customers\\ArenbergMeppen\\Karlswald\\raster\\Orthos\\Ortho__Meyerei_431_435__70mm__139mm__2020_10_23.gpkg',
+                                  '192.168.37.4\\gis_data\\customers\\ArenbergMeppen\\Karlswald\\raster\\Orthos\\Ortho__Meyerei_441_442__67mm__1068mm__2020_10_23.gpkg',
+                                  '192.168.37.4\\gis_data\\customers\\ArenbergMeppen\\Karlswald\\raster\\Orthos\\Ortho__Meyerei_441_442__67mm__133mm__2020_10_23.gpkg',
+                                  '192.168.37.4\\gis_data\\customers\\ArenbergMeppen\\Karlswald\\raster\\Orthos\\Ortho__Meyerei_453_451__67mm__1068mm__2020_10_23.gpkg',
+                                  '192.168.37.4\\gis_data\\customers\\ArenbergMeppen\\Karlswald\\raster\\Orthos\\Ortho__Meyerei_453_451__67mm__134mm__2020_10_23.gpkg',
+                                  '192.168.37.4\\gis_data\\customers\\ArenbergMeppen\\Karlswald\\raster\\Orthos\\Ortho__Meyerei_461_471__77mm__1232mm__2020_10_23.gpkg',
+                                  '192.168.37.4\\gis_data\\customers\\ArenbergMeppen\\Karlswald\\raster\\Orthos\\Ortho__Meyerei_461_471__77mm__154mm__2020_10_23.gpkg',
+                                  '192.168.37.4\\gis_data\\customers\\ArenbergMeppen\\Karlswald\\raster\\Orthos\\Ortho__Meyerei_491_495__69mm__1102mm__2020_10_23.gpkg',
+                                  '192.168.37.4\\gis_data\\customers\\ArenbergMeppen\\Karlswald\\raster\\Orthos\\Ortho__Meyerei_491_495__69mm__138mm__2020_10_23.gpkg',
+                                  '192.168.37.4\\gis_data\\customers\\ArenbergMeppen\\Karlswald\\raster\\Orthos\\Ortho__Meyerei_501_506__82mm__1312mm__2020_06_24.gpkg',
+                                  '192.168.37.4\\gis_data\\customers\\ArenbergMeppen\\Karlswald\\raster\\Orthos\\Ortho__Meyerei_511_513__82mm__1312mm__2020_06_24.gpkg']},
+ 'Blauwald': {'Duttenstein': ['192.168.37.4\\gis_data\\customers\\Blauwald\\Duttenstein\\raster\\Orthos\\Ortho__Duttenstein__66mm__1050mm__2021_06_14.gpkg'],
+              'Ebnat': ['192.168.37.4\\gis_data\\customers\\Blauwald\\Ebnat\\raster\\Orthos\\Ortho__Ebnat_0__65mm__1040mm__2020_07_20.gpkg',
+                        '192.168.37.4\\gis_data\\customers\\Blauwald\\Ebnat\\raster\\Orthos\\Ortho__Ebnat_1__65mm__1040mm__2020_07_20.gpkg',
+                        '192.168.37.4\\gis_data\\customers\\Blauwald\\Ebnat\\raster\\Orthos\\Ortho__Ebnat_2__65mm__1040mm__2020_07_20.gpkg',
+                        '192.168.37.4\\gis_data\\customers\\Blauwald\\Ebnat\\raster\\Orthos\\Ortho__Ebnat_3__65mm__1040mm__2020_07_20.gpkg']},
+ 'CenterForst': {'Baumbach': ['192.168.37.4\\gis_data\\customers\\CenterForst\\Baumbach\\raster\\Orthos\\Ortho__Baumbach__76mm__2021_03_30.gpkg',
+                              '192.168.37.4\\gis_data\\customers\\CenterForst\\Baumbach\\raster\\Orthos\\Ortho__Baumbach__76mm__2021_03_30__CIR.gpkg'],
+                 'Immergruen': ['192.168.37.4\\gis_data\\customers\\CenterForst\\Immergruen\\raster\\Orthos\\Ortho__Immergruen__48mm__774mm__2021_08_27.gpkg'],
+                 'Weide': ['192.168.37.4\\gis_data\\customers\\CenterForst\\Weide\\raster\\Orthos\\Ortho__Weide__48mm__774mm__2021_08_27.gpkg']},
+ 'Fugger': {'Wellenburg': ['192.168.37.4\\gis_data\\customers\\Fugger\\Wellenburg\\raster\\Orthos\\Ortho__Wellenburg__63mm__1010mm__2021_02_20.gpkg']},
+ 'GrafSpreti': {'Lotzbeck': ['192.168.37.4\\gis_data\\customers\\GrafSpreti\\Lotzbeck\\raster\\Orthos\\Ortho__Lotzbeck_1__66mm__1063mm__2021_09_24.gpkg',
+                             '192.168.37.4\\gis_data\\customers\\GrafSpreti\\Lotzbeck\\raster\\Orthos\\Ortho__Lotzbeck_2__65mm__1046mm__2021_09_24.gpkg',
+                             '192.168.37.4\\gis_data\\customers\\GrafSpreti\\Lotzbeck\\raster\\Orthos\\Ortho__Lotzbeck_3__65mm__1046mm__2021_09_24.gpkg',
+                             '192.168.37.4\\gis_data\\customers\\GrafSpreti\\Lotzbeck\\raster\\Orthos\\Ortho__Lotzbeck_4__66mm__1056mm__2021_09_24.gpkg',
+                             '192.168.37.4\\gis_data\\customers\\GrafSpreti\\Lotzbeck\\raster\\Orthos\\before_color_correction\\Ortho__Lotzbeck_1__66mm__1063mm__2021_09_24.gpkg',
+                             '192.168.37.4\\gis_data\\customers\\GrafSpreti\\Lotzbeck\\raster\\Orthos\\before_color_correction\\Ortho__Lotzbeck_2__65mm__1046mm__2021_09_24.gpkg',
+                             '192.168.37.4\\gis_data\\customers\\GrafSpreti\\Lotzbeck\\raster\\Orthos\\before_color_correction\\Ortho__Lotzbeck_3__65mm__1046mm__2021_09_24.gpkg',
+                             '192.168.37.4\\gis_data\\customers\\GrafSpreti\\Lotzbeck\\raster\\Orthos\\before_color_correction\\Ortho__Lotzbeck_4__66mm__1056mm__2021_09_24.gpkg']},
+ 'HofosOldershausen': {'Breitenbach': ['192.168.37.4\\gis_data\\customers\\HofosOldershausen\\Breitenbach\\raster\\Orthos\\Ortho__Breitenbach__55mm__881mm__2021_08_30.gpkg'],
+                       'Fienerode': ['192.168.37.4\\gis_data\\customers\\HofosOldershausen\\Fienerode\\raster\\Orthos\\Ortho__Fienerode__72mm__1160mm__2020_06_23.gpkg',
+                                     '192.168.37.4\\gis_data\\customers\\HofosOldershausen\\Fienerode\\raster\\Orthos\\Ortho__Fienerode__72mm__145mm__2020_06_23.gpkg',
+                                     '192.168.37.4\\gis_data\\customers\\HofosOldershausen\\Fienerode\\raster\\Orthos\\Ortho__Fienerode__95mm__1160mm__2020_01_17.gpkg'],
+                       'Muenzenberg': ['192.168.37.4\\gis_data\\customers\\HofosOldershausen\\Muenzenberg\\raster\\Orthos\\Ortho__Muenzenberg__76mm__2021_03_30.gpkg']},
+ 'Lotzbeck': {'Lotzbeck': ['192.168.37.4\\gis_data\\customers\\GrafSpreti\\Lotzbeck\\raster\\Orthos\\Ortho__Lotzbeck_1__66mm__1063mm__2021_09_24.gpkg',
+                           '192.168.37.4\\gis_data\\customers\\GrafSpreti\\Lotzbeck\\raster\\Orthos\\Ortho__Lotzbeck_2__65mm__1046mm__2021_09_24.gpkg',
+                           '192.168.37.4\\gis_data\\customers\\GrafSpreti\\Lotzbeck\\raster\\Orthos\\Ortho__Lotzbeck_3__65mm__1046mm__2021_09_24.gpkg',
+                           '192.168.37.4\\gis_data\\customers\\GrafSpreti\\Lotzbeck\\raster\\Orthos\\Ortho__Lotzbeck_4__66mm__1056mm__2021_09_24.gpkg',
+                           '192.168.37.4\\gis_data\\customers\\GrafSpreti\\Lotzbeck\\raster\\Orthos\\before_color_correction\\Ortho__Lotzbeck_1__66mm__1063mm__2021_09_24.gpkg',
+                           '192.168.37.4\\gis_data\\customers\\GrafSpreti\\Lotzbeck\\raster\\Orthos\\before_color_correction\\Ortho__Lotzbeck_2__65mm__1046mm__2021_09_24.gpkg',
+                           '192.168.37.4\\gis_data\\customers\\GrafSpreti\\Lotzbeck\\raster\\Orthos\\before_color_correction\\Ortho__Lotzbeck_3__65mm__1046mm__2021_09_24.gpkg',
+                           '192.168.37.4\\gis_data\\customers\\GrafSpreti\\Lotzbeck\\raster\\Orthos\\before_color_correction\\Ortho__Lotzbeck_4__66mm__1056mm__2021_09_24.gpkg']},
+ 'ToeringJettenbach': {'Duenzelbach': ['192.168.37.4\\gis_data\\customers\\ToeringJettenbach\\Duenzelbach\\raster\\Orthos\\Ortho__Dunzelbach__63mm__1010mm__2021_02_20.gpkg',
+                                       '192.168.37.4\\gis_data\\customers\\ToeringJettenbach\\Duenzelbach\\raster\\Orthos\\Ortho__Dunzelbach__63mm__1010mm__2021_02_20_wg84_gdal.gpkg',
+                                       '192.168.37.4\\gis_data\\customers\\ToeringJettenbach\\Duenzelbach\\raster\\Orthos\\Ortho__Dunzelbach__63mm__1010mm__2021_02_20_wg84_qgis.gpkg'],
+                       'Gutenzell': ['192.168.37.4\\gis_data\\customers\\ToeringJettenbach\\Gutenzell\\raster\\Orthos\\Ortho__Gutenzell-0__62mm__246mm__2020_07_13.gpkg',
+                                     '192.168.37.4\\gis_data\\customers\\ToeringJettenbach\\Gutenzell\\raster\\Orthos\\Ortho__Gutenzell-1__62mm__246mm__2020_07_13.gpkg'],
+                       'Inning': ['192.168.37.4\\gis_data\\customers\\ToeringJettenbach\\Inning\\raster\\Orthos\\Ortho__Inning_3__69mm__1100mm__2021_02_14.gpkg',
+                                  '192.168.37.4\\gis_data\\customers\\ToeringJettenbach\\Inning\\raster\\Orthos\\Ortho__Seefeld_Inning_2__66mm__1060mm__2021_02_14.gpkg',
+                                  '192.168.37.4\\gis_data\\customers\\ToeringJettenbach\\Inning\\raster\\Orthos\\Ortho__Seefeld_Inning_2__66mm__528mm__2021_02_14.gpkg'],
+                       'Jettenbach': ['192.168.37.4\\gis_data\\customers\\ToeringJettenbach\\Jettenbach\\raster\\Orthos\\Ortho__Jettenbach_12__62mm__995mm__2021_06_14.gpkg',
+                                      '192.168.37.4\\gis_data\\customers\\ToeringJettenbach\\Jettenbach\\raster\\Orthos\\Ortho__Jettenbach_13__65mm__1040mm__2021_06_14.gpkg',
+                                      '192.168.37.4\\gis_data\\customers\\ToeringJettenbach\\Jettenbach\\raster\\Orthos\\Ortho__Jettenbach_14__54mm__867mm__2021_07_23.gpkg',
+                                      '192.168.37.4\\gis_data\\customers\\ToeringJettenbach\\Jettenbach\\raster\\Orthos\\Ortho__Jettenbach_1__66mm__1060mm__2021_06_14.gpkg',
+                                      '192.168.37.4\\gis_data\\customers\\ToeringJettenbach\\Jettenbach\\raster\\Orthos\\Ortho__Jettenbach_3__69mm__1100mm__2021_06_14.gpkg',
+                                      '192.168.37.4\\gis_data\\customers\\ToeringJettenbach\\Jettenbach\\raster\\Orthos\\Ortho__Jettenbach_5__58mm__932mm__2021_07_23.gpkg',
+                                      '192.168.37.4\\gis_data\\customers\\ToeringJettenbach\\Jettenbach\\raster\\Orthos\\Ortho__Jettenbach_7__58mm__932mm__2021_07_23.gpkg',
+                                      '192.168.37.4\\gis_data\\customers\\ToeringJettenbach\\Jettenbach\\raster\\Orthos\\Ortho__Jettenbach_8__88mm__1060mm__2021_06_14.gpkg',
+                                      '192.168.37.4\\gis_data\\customers\\ToeringJettenbach\\Jettenbach\\raster\\Orthos\\Ortho__Jettenbach_9__65mm__1040mm__2021_06_14.gpkg'],
+                       'Mischenried': ['192.168.37.4\\gis_data\\customers\\ToeringJettenbach\\Mischenried\\raster\\Orthos\\Ortho__Inning_3__69mm__1100mm__2021_02_14.gpkg',
+                                       '192.168.37.4\\gis_data\\customers\\ToeringJettenbach\\Mischenried\\raster\\Orthos\\Ortho__Mischenried_1__63mm__1010mm__2021_02_14.gpkg'],
+                       'Seefeld': ['192.168.37.4\\gis_data\\customers\\ToeringJettenbach\\Seefeld\\raster\\Orthos\\Ortho__SeefeldInning_2__66mm__1060mm__2021_02_14.gpkg',
+                                   '192.168.37.4\\gis_data\\customers\\ToeringJettenbach\\Seefeld\\raster\\Orthos\\Ortho__SeefeldInning_2__66mm__528mm__2021_02_14.gpkg'],
+                       'Winhoering': ['192.168.37.4\\gis_data\\customers\\ToeringJettenbach\\Winhoering\\raster\\Orthos\\Ortho__Winhoering_1__59mm__948mm__2021_07_23.gpkg',
+                                      '192.168.37.4\\gis_data\\customers\\ToeringJettenbach\\Winhoering\\raster\\Orthos\\Ortho__Winhoering_2__61mm__973mm__2021_07_23.gpkg',
+                                      '192.168.37.4\\gis_data\\customers\\ToeringJettenbach\\Winhoering\\raster\\Orthos\\Ortho__Winhoering_3__60mm__967mm__2021_07_23.gpkg',
+                                      '192.168.37.4\\gis_data\\customers\\ToeringJettenbach\\Winhoering\\raster\\Orthos\\Ortho__Winhoering_3__73mm__1160mm__2021_03_01.gpkg',
+                                      '192.168.37.4\\gis_data\\customers\\ToeringJettenbach\\Winhoering\\raster\\Orthos\\Ortho__Winhoering_4__67mm__1080mm__2021_07_23.gpkg',
+                                      '192.168.37.4\\gis_data\\customers\\ToeringJettenbach\\Winhoering\\raster\\Orthos\\Ortho__Winhoering_5__67mm__1080mm__2021_07_23.gpkg',
+                                      '192.168.37.4\\gis_data\\customers\\ToeringJettenbach\\Winhoering\\raster\\Orthos\\Ortho__Winhoering_6__65mm__1030mm__2021_07_23.gpkg',
+                                      '192.168.37.4\\gis_data\\customers\\ToeringJettenbach\\Winhoering\\raster\\Orthos\\Ortho__Winhoering_7__57mm__908mm__2021_07_23.gpkg']},
+ 'VonPfuel': {'Tuessling': ['192.168.37.4\\gis_data\\customers\\VonPfuel\\Tuessling\\raster\\Orthos\\Ortho__Tuessling_1__66mm__1050mm__2021_07_23.gpkg',
+                            '192.168.37.4\\gis_data\\customers\\VonPfuel\\Tuessling\\raster\\Orthos\\Ortho__Tuessling_2__61mm__484mm__2021_07_23.gpkg',
+                            '192.168.37.4\\gis_data\\customers\\VonPfuel\\Tuessling\\raster\\Orthos\\Ortho__Tuessling_3__61mm__484mm__2021_07_23.gpkg',
+                            '192.168.37.4\\gis_data\\customers\\VonPfuel\\Tuessling\\raster\\Orthos\\Ortho__Tuessling_4__65mm__1040mm__2021_07_23.gpkg',
+                            '192.168.37.4\\gis_data\\customers\\VonPfuel\\Tuessling\\raster\\Orthos\\Ortho__Tuessling_5__65mm__1040mm__2021_07_23.gpkg']},
+ 'Wallerstein': {'Dist_12_13': ['192.168.37.4\\gis_data\\customers\\Wallerstein\\Dist_12_13\\raster\\Orthos\\Ortho__Dist_12_13__67mm__1070mm__2021_06_14.gpkg',
+                                '192.168.37.4\\gis_data\\customers\\Wallerstein\\Dist_12_13\\raster\\Orthos\\Ortho__Dist_12_13__68mm__1090mm__2021_03_01.gpkg'],
+                 'Dist_30_31': ['192.168.37.4\\gis_data\\customers\\Wallerstein\\Dist_30_31\\raster\\Orthos\\Ortho__Dist_30_31__65mm__270mm__2020_07_31.gpkg',
+                                '192.168.37.4\\gis_data\\customers\\Wallerstein\\Dist_30_31\\raster\\Orthos\\Ortho__Dist_30_31__65mm__310mm__2020_07_31.gpkg']},
+ 'customers': {'Fugger': ['192.168.37.4\\gis_data\\customers\\Fugger\\Wellenburg\\raster\\Ortho__Wellenburg__63mm__1010mm__2021_02_20.gpkg']},
+ 'flights_data_processing': {'2021_09_24': ['192.168.37.4\\gis_data\\flights_data_processing\\2021_09_24\\metashape\\2021-09-24-11-49-41\\Ortho__2021-09-24-11-49-41_0__65mm__1046mm__2021_09_27.gpkg'],
+                             'unsorted': ['192.168.37.4\\gis_data\\flights_data_processing\\unsorted\\RAW_2020_06_02_Wallerstein\\Export\\Ortho__Distrikt_30_31__51mm__205mm__2020_06_02.gpkg']},
+ 'gis_data': {'customers': ['192.168.37.4\\gis_data\\customers\\DeutscheBahn\\raster\\Ortho__Mühldorf__25mm__155mm__2020_05_27.gpkg'],
+              'flights_data_processing': ['192.168.37.4\\gis_data\\flights_data_processing\\unsorted\\BackupMapper\\Ortho__Dunzelbach__63mm__1010mm__2021_02_20.gpkg',
+                                          '192.168.37.4\\gis_data\\flights_data_processing\\unsorted\\BackupMapper\\Ortho__Seefeld_1__63mm__1010mm__2021_02_14.gpkg',
+                                          '192.168.37.4\\gis_data\\flights_data_processing\\unsorted\\BackupMapper\\Ortho__Seefeld_2__66mm__528mm__2021_02_14.gpkg',
+                                          '192.168.37.4\\gis_data\\flights_data_processing\\unsorted\\BackupMapper\\Ortho__Seefeld_3__69mm__1100mm__2021_02_14.gpkg']},
+ 'unsorted': {'BackupMapper': ['192.168.37.4\\gis_data\\flights_data_processing\\unsorted\\BackupMapper\\2021_02_14\\Export\\Ortho__Seefeld_2__66mm__1060mm__2021_02_14.gpkg',
+                               '192.168.37.4\\gis_data\\flights_data_processing\\unsorted\\BackupMapper\\2021_02_20\\Exports\\Ortho__Wellenburg_North__63mm__1100mm__2021_02_20.gpkg',
+                               '192.168.37.4\\gis_data\\flights_data_processing\\unsorted\\BackupMapper\\2021_02_20\\Exports\\Ortho__Wellenburg_South__63mm__1100mm__2021_02_20.gpkg',
+                               '192.168.37.4\\gis_data\\flights_data_processing\\unsorted\\BackupMapper\\2021_03_01\\Export\\Ortho__Distrikt_12__68mm__1090mm__2021_03_01.gpkg',
+                               '192.168.37.4\\gis_data\\flights_data_processing\\unsorted\\BackupMapper\\2021_03_01\\Export\\Ortho__Wellenburg__63mm__1010mm__2021_02_20.gpkg',
+                               '192.168.37.4\\gis_data\\flights_data_processing\\unsorted\\BackupMapper\\2021_03_30\\Export\\Ortho__Baumbach__76mm__2021_03_30_PNG.gpkg',
+                               '192.168.37.4\\gis_data\\flights_data_processing\\unsorted\\BackupMapper\\2021_03_30\\Export\\Ortho__Baumbach_groß__76mm__2021_03_30.gpkg',
+                               '192.168.37.4\\gis_data\\flights_data_processing\\unsorted\\BackupMapper\\2021_03_30\\Export\\Ortho__Hellwig__76mm__2021_03_30.gpkg']}}
+
+label_last_dict_windows = {'ArenbergMeppen': {'Eleonorenwald': ['\\\\192.168.37.4\\gis_data\\customers\\ArenbergMeppen\\Eleonorenwald\\image_processing_data\\labels\\Label__ArenbergMeppen__Elenorenwald__Hasan__2021_10_22__v1__CONTINUE.geojson'],
+                    'Engelbertswald': ['\\\\192.168.37.4\\gis_data\\customers\\ArenbergMeppen\\Engelbertswald\\image_processing_data\\labels\\Label__ArenbergMeppen__Engelbertswald__2021_10_26__Hasan__v1.geojson']},  
+ 'Blauwald': {'Duttenstein': ['\\\\192.168.37.4\\gis_data\\customers\\Blauwald\\Duttenstein\\image_processing_data\\labels\\Label__Duttenstein__david__v1.geojson',
+                              '\\\\192.168.37.4\\gis_data\\customers\\Blauwald\\Duttenstein\\image_processing_data\\labels\\Label__Duttenstein__felix__v1.geojson',
+                              '\\\\192.168.37.4\\gis_data\\customers\\Blauwald\\Duttenstein\\image_processing_data\\labels\\Label__Duttenstein__sarah__v1.geojson']},
+ 'CenterForst': {'Immergruen': ['\\\\192.168.37.4\\gis_data\\customers\\CenterForst\\Immergruen\\image_processing_data\\labels\\Label__Immergruen__david__v1.geojson',
+                                '\\\\192.168.37.4\\gis_data\\customers\\CenterForst\\Immergruen\\image_processing_data\\labels\\Label__Immergruen__felix__fixed__v1.geojson']},
+ 'Fugger': {'Wellenburg': ['\\\\192.168.37.4\\gis_data\\customers\\Fugger\\Wellenburg\\image_processing_data\\labels\\Label__Wellenburg__david__v2.geojson',
+                           '\\\\192.168.37.4\\gis_data\\customers\\Fugger\\Wellenburg\\image_processing_data\\labels\\Label__Wellenburg__incl_fir__v2.geojson',
+                           '\\\\192.168.37.4\\gis_data\\customers\\Fugger\\Wellenburg\\image_processing_data\\labels\\Label__Wellenburg__v2.geojson']},
+ 'GrafSpreti': {'Lotzbeck': ['\\\\192.168.37.4\\gis_data\\customers\\GrafSpreti\\Lotzbeck\\image_processing_data\\labels\\Label__Lotzbeck_1__luca__v1.geojson',
+                             '\\\\192.168.37.4\\gis_data\\customers\\GrafSpreti\\Lotzbeck\\image_processing_data\\labels\\Label__Lotzbeck_2__luca__v1.geojson',
+                             '\\\\192.168.37.4\\gis_data\\customers\\GrafSpreti\\Lotzbeck\\image_processing_data\\labels\\Label__Lotzbeck_4__hasan__v1.geojson',
+                             '\\\\192.168.37.4\\gis_data\\customers\\GrafSpreti\\Lotzbeck\\image_processing_data\\labels\\Label__Lotzbeck_4__hasan__v2.geojson']},
+ 'HofosOldershausen': {'Breitenbach': ['\\\\192.168.37.4\\gis_data\\customers\\HofosOldershausen\\Breitenbach\\image_processing_data\\labels\\Label__Breitenbach__luca__v1.geojson',
+                                       '\\\\192.168.37.4\\gis_data\\customers\\HofosOldershausen\\Breitenbach\\image_processing_data\\labels\\Label__Breitenbach__luca__v2.geojson',
+                                       '\\\\192.168.37.4\\gis_data\\customers\\HofosOldershausen\\Breitenbach\\image_processing_data\\labels\\Label__Breitenbach__luca__v3.geojson'],
+                       'Muenzenberg': ['\\\\192.168.37.4\\gis_data\\customers\\HofosOldershausen\\Muenzenberg\\image_processing_data\\labels\\Label__david_label_v2_CONVTRAININGLABELS.geojson',
+                                       '\\\\192.168.37.4\\gis_data\\customers\\HofosOldershausen\\Muenzenberg\\image_processing_data\\labels\\Label__hellwig_david_label_v1_CONVTRAININGLABELS.geojson']},
+ 'ToeringJettenbach': {'Inning': ['\\\\192.168.37.4\\gis_data\\customers\\ToeringJettenbach\\Inning\\image_processing_data\\labels\\Label__Seefeld_Inning__2_1__v1.geojson',
+                                  '\\\\192.168.37.4\\gis_data\\customers\\ToeringJettenbach\\Inning\\image_processing_data\\labels\\Label__Seefeld_Inning__2_1__v2.geojson',
+                                  '\\\\192.168.37.4\\gis_data\\customers\\ToeringJettenbach\\Inning\\image_processing_data\\labels\\Label__Seefeld_Inning__2_2__v1.geojson'],
+                       'Jettenbach': ['\\\\192.168.37.4\\gis_data\\customers\\ToeringJettenbach\\Jettenbach\\image_processing_data\\labels\\Label__Jettenbach_12__2021_08_02-07_19_122__v1.geojson',
+                                      '\\\\192.168.37.4\\gis_data\\customers\\ToeringJettenbach\\Jettenbach\\image_processing_data\\labels\\Label__Jettenbach_12__2021_08_02-07_19_122__v2.geojson',
+                                      '\\\\192.168.37.4\\gis_data\\customers\\ToeringJettenbach\\Jettenbach\\image_processing_data\\labels\\Label__Jettenbach_12__2021_08_02-07_19_122__v3.geojson',
+                                      '\\\\192.168.37.4\\gis_data\\customers\\ToeringJettenbach\\Jettenbach\\image_processing_data\\labels\\Label__Jettenbach_14__54mm__867mm__2021_08_24-11_47_48__v2.geojson',        
+                                      '\\\\192.168.37.4\\gis_data\\customers\\ToeringJettenbach\\Jettenbach\\image_processing_data\\labels\\Label__Jettenbach_1__2021_08_02-07_21_17__v1.geojson',
+                                      '\\\\192.168.37.4\\gis_data\\customers\\ToeringJettenbach\\Jettenbach\\image_processing_data\\labels\\Label__Jettenbach_1__2021_08_02-07_21_17__v2.geojson',
+                                      '\\\\192.168.37.4\\gis_data\\customers\\ToeringJettenbach\\Jettenbach\\image_processing_data\\labels\\Label__Jettenbach_3__2021_08_02-07_18_55__v1.geojson',
+                                      '\\\\192.168.37.4\\gis_data\\customers\\ToeringJettenbach\\Jettenbach\\image_processing_data\\labels\\Label__Jettenbach_3__2021_08_02-07_18_55__v2.geojson',
+                                      '\\\\192.168.37.4\\gis_data\\customers\\ToeringJettenbach\\Jettenbach\\image_processing_data\\labels\\Label__Jettenbach_3__2021_08_02-07_18_55__v3.geojson',
+                                      '\\\\192.168.37.4\\gis_data\\customers\\ToeringJettenbach\\Jettenbach\\image_processing_data\\labels\\Label__Jettenbach_5__58mm__932mm__2021_08_24-11_45_44__v2.geojson',
+                                      '\\\\192.168.37.4\\gis_data\\customers\\ToeringJettenbach\\Jettenbach\\image_processing_data\\labels\\Label__Jettenbach_7__58mm__932mm__2021_08_24-11_46_49__v2.geojson',
+                                      '\\\\192.168.37.4\\gis_data\\customers\\ToeringJettenbach\\Jettenbach\\image_processing_data\\labels\\Label__Jettenbach_8__2021_08_04-08_51_43__v1.geojson',
+                                      '\\\\192.168.37.4\\gis_data\\customers\\ToeringJettenbach\\Jettenbach\\image_processing_data\\labels\\Label__Jettenbach_8__2021_08_04-08_51_43__v2.geojson'],
+                       'Mischenried': ['\\\\192.168.37.4\\gis_data\\customers\\ToeringJettenbach\\Mischenried\\image_processing_data\\labels\\Label__Mischenried_Inning__v1.geojson',
+                                       '\\\\192.168.37.4\\gis_data\\customers\\ToeringJettenbach\\Mischenried\\image_processing_data\\labels\\Label__Mischenried__v2.geojson'],
+                       'Winhoering': ['\\\\192.168.37.4\\gis_data\\customers\\ToeringJettenbach\\Winhoering\\image_processing_data\\labels\\Label__Winhoering_1__Sarah__v2.geojson',
+                                      '\\\\192.168.37.4\\gis_data\\customers\\ToeringJettenbach\\Winhoering\\image_processing_data\\labels\\Label__Winhoering_1____v1.geojson',
+                                      '\\\\192.168.37.4\\gis_data\\customers\\ToeringJettenbach\\Winhoering\\image_processing_data\\labels\\Label__Winhoering_1____v4.geojson',
+                                      '\\\\192.168.37.4\\gis_data\\customers\\ToeringJettenbach\\Winhoering\\image_processing_data\\labels\\Label__Winhoering_2__Sarah__v2.geojson',
+                                      '\\\\192.168.37.4\\gis_data\\customers\\ToeringJettenbach\\Winhoering\\image_processing_data\\labels\\Label__Winhoering_2____v1.geojson',
+                                      '\\\\192.168.37.4\\gis_data\\customers\\ToeringJettenbach\\Winhoering\\image_processing_data\\labels\\Label__Winhoering_2____v4.geojson',
+                                      '\\\\192.168.37.4\\gis_data\\customers\\ToeringJettenbach\\Winhoering\\image_processing_data\\labels\\Label__Winhoering_3__SarahChristian__v3.geojson',
+                                      '\\\\192.168.37.4\\gis_data\\customers\\ToeringJettenbach\\Winhoering\\image_processing_data\\labels\\Label__Winhoering_3____v4.geojson']},
+ 'VonPfuel': {'Tuessling': ['\\\\192.168.37.4\\gis_data\\customers\\VonPfuel\\Tuessling\\image_processing_data\\labels\\Label__Tuessling_1__66mm__1050mm__2021_09_22-12_58_58.geojson',
+                            '\\\\192.168.37.4\\gis_data\\customers\\VonPfuel\\Tuessling\\image_processing_data\\labels\\Label__Tuessling_1__Christian__v2.geojson',
+                            '\\\\192.168.37.4\\gis_data\\customers\\VonPfuel\\Tuessling\\image_processing_data\\labels\\Label__Tuessling_1__Christian__v3.geojson']},
+ 'Wallerstein': {'Dist_12_13': ['\\\\192.168.37.4\\gis_data\\customers\\Wallerstein\\Dist_12_13\\image_processing_data\\labels\\Label__Dist_12_13__winter__v2.geojson']},
+ 'customers': {}}

@@ -1,3 +1,12 @@
-tuple_1 = ('deneneme', 'sdsd')
+import json
+import geojson 
+import uuid 
 
-print(tuple_1(0))
+print(uuid.uuid4().int & (1<<31)-1)
+
+
+
+
+
+
+    

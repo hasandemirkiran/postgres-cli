@@ -1,2 +1,9 @@
-/data
-.DS_Store
+*~
+.vscode
+*.DS_Store
+.idea
+test/
+test/**
+__pycache__/
+test/data.py
+test/test2.py

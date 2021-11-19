@@ -16,22 +16,7 @@ engine = create_engine(
 path = '/Volumes/gis_data/customers/'
 
 '''
-# Upload Ortho Files
-ortho_last, label_last = url_finder.last_sorted_dicts(path)
-ortho_df = extract_info.pick_from_ortho_dict(ortho_last)
-
-ortho_df.rename(columns={'region_part': 'name',
-                         'date': 'recording_start_date'}, inplace=True)
-ortho_df_to_upload = ortho_df[['id', 'name', 'gsd',
-                               'resolution', 'recording_start_date', 'url']]
-ortho_df_to_upload.to_sql('raster_info', con=engine,
-                          if_exists='append', index=False)
-'''
-
-
-
-label_session_table_gdf, label_table_gdf, label_feature_table_gdf = extract_info.get_data_geoJson(
-    'data/label_data/geoData.geojson')
+label_session_table_gdf, label_table_gdf, label_feature_table_gdf = extract_info.get_data_geoJson('data/label_data/geoData.geojson')
 
 # print(label_session_table_gdf)
 # print()
@@ -66,7 +51,7 @@ label_feature_table_gdf.to_sql('label_feature', engine, if_exists='append', inde
 # label_feature_table_gdf.to_sql('label_feature', con = engine, if_exists='append', index=False)
 
 
-
+'''
 
 
 '''# Upload one label file 
