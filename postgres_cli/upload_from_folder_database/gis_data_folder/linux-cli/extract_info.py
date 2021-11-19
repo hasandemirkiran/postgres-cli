@@ -134,7 +134,6 @@ def pick_from_ortho_dict(ortho_last):
     ortho_df = pd.DataFrame(ortho_list_to_upload)
     ortho_df.insert(0, 'id', id)
 
-<<<<<<< HEAD:extract_info.py
     return ortho_df
 
 
@@ -175,33 +174,3 @@ def get_data_geoJson_all():
 
 
 print(get_data_geoJson_all())
-=======
-                
-    return ortho_df
-
-
-def pick_all_geojson(label_last):
-    label_last= {'Blauwald': {'Duttenstein': ['/Volumes/gis_data/customers/Blauwald/Duttenstein/image_processing_data/label/Label__Duttenstein__david__v1.geojson',
-                              '/Volumes/gis_data/customers/Blauwald/Duttenstein/image_processing_data/label/Label__Duttenstein__felix__v1.geojson',
-                              '/Volumes/gis_data/customers/Blauwald/Duttenstein/image_processing_data/label/Label__Duttenstein__sarah__v1.geojson']},
- 'Fugger': {'Wellenburg': ['/Volumes/gis_data/customers/Fugger/Wellenburg/image_processing_data/labels/Label__Wellenburg__incl_fir__v2.geojson']},
- 'ToeringJettenbach': {'Jettenbach': ['/Volumes/gis_data/customers/ToeringJettenbach/Jettenbach/image_processing_data/labels/Label__Jettenbach_12__2021_08_02-07_19_122__v3.geojson',
-                                      '/Volumes/gis_data/customers/ToeringJettenbach/Jettenbach/image_processing_data/labels/Label__Jettenbach_14__54mm__867mm__2021_08_24-11_47_48__v2.geojson',
-                                      '/Volumes/gis_data/customers/ToeringJettenbach/Jettenbach/image_processing_data/labels/Label__Jettenbach_1__2021_08_02-07_21_17__v2.geojson',
-                                      '/Volumes/gis_data/customers/ToeringJettenbach/Jettenbach/image_processing_data/labels/Label__Jettenbach_3__2021_08_02-07_18_55__v3.geojson',
-                                      '/Volumes/gis_data/customers/ToeringJettenbach/Jettenbach/image_processing_data/labels/Label__Jettenbach_5__58mm__932mm__2021_08_24-11_45_44__v2.geojson',
-                                      '/Volumes/gis_data/customers/ToeringJettenbach/Jettenbach/image_processing_data/labels/Label__Jettenbach_7__58mm__932mm__2021_08_24-11_46_49__v2.geojson',
-                                      '/Volumes/gis_data/customers/ToeringJettenbach/Jettenbach/image_processing_data/labels/Label__Jettenbach_8__2021_08_04-08_51_43__v2.geojson'],
-                       'Winhoering': ['/Volumes/gis_data/customers/ToeringJettenbach/Winhoering/image_processing_data/labels/Label__Winhoering_1____v4.geojson',
-                                      '/Volumes/gis_data/customers/ToeringJettenbach/Winhoering/image_processing_data/labels/Label__Winhoering_2____v4.geojson',
-                                      '/Volumes/gis_data/customers/ToeringJettenbach/Winhoering/image_processing_data/labels/Label__Winhoering_3____v4.geojson',]},
- 'VonPfuel': {'Tuessling': ['/Volumes/gis_data/customers/VonPfuel/Tuessling/image_processing_data/labels/Label__Tuessling_1__Christian__v3.geojson']},
- 'Wallerstein': {'Dist_12_13': ['/Volumes/gis_data/customers/Wallerstein/Dist_12_13/image_processing_data/labels/Label__Dist_12_13__winter__v2.geojson']}}
-
-    engine = create_engine('postgresql://ocell:PdUfpcWSYh4y3Cg@labeldb.cxitxpc33tur.eu-central-1.rds.amazonaws.com:5432/hasan_test')
-
-
-    for customer in label_last:
-        for region in label_last[customer]:
-            pass
->>>>>>> 7061280389065a833b6230c02cc7f1d11e63d4de:postgres_cli/upload_from_folder_database/gis_data_folder/linux-cli/extract_info.py
