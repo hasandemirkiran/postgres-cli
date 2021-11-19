@@ -12,10 +12,11 @@ from shapely.geometry import Polygon
 
 # Creating SQLAlchemy's engine to use
 engine = create_engine(
-    'postgresql://ocell:PdUfpcWSYh4y3Cg@labeldb.cxitxpc33tur.eu-central-1.rds.amazonaws.com:5432/hasan_test')
-path = '/Volumes/gis_data/customers/'
+    "postgresql://ocell:PdUfpcWSYh4y3Cg@labeldb.cxitxpc33tur.eu-central-1.rds.amazonaws.com:5432/hasan_test"
+)
+path = "/Volumes/gis_data/customers/"
 
-'''
+"""
 label_session_table_gdf, label_table_gdf, label_feature_table_gdf = extract_info.get_data_geoJson('data/label_data/geoData.geojson')
 
 # print(label_session_table_gdf)
@@ -51,10 +52,10 @@ label_feature_table_gdf.to_sql('label_feature', engine, if_exists='append', inde
 # label_feature_table_gdf.to_sql('label_feature', con = engine, if_exists='append', index=False)
 
 
-'''
+"""
 
 
-'''# Upload one label file 
+"""# Upload one label file 
 # geodataframe = extract_info.get_data_geoJson('data/label_data/geoData.geojson')
 geodataframe['feature_area'] = geodataframe['geom'].apply(lambda x: WKTElement(x.wkt, srid=4326))
 
@@ -64,4 +65,4 @@ geodataframe.drop('geom', 1, inplace=True)
 # Use 'dtype' to specify column's type
 # For the geom column, we will use GeoAlchemy's type 'Geometry'
 geodataframe.to_sql('label_feature', engine, if_exists='append', index=False, dtype={'feature_area': Geometry('POINT', srid= 4326)})
-'''
+"""
