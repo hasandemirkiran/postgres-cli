@@ -167,11 +167,13 @@ ortho_last_dic = {'ArenbergMeppen': {'Eleonorenwald': ['/Volumes/gis_data/custom
 
 
 
-label_last_dict = {'Blauwald': {'Duttenstein': ['/Volumes/gis_data/customers/Blauwald/Duttenstein/image_processing_data/label/Label__Duttenstein__david__v1.geojson',
-                              '/Volumes/gis_data/customers/Blauwald/Duttenstein/image_processing_data/label/Label__Duttenstein__felix__v1.geojson',
-                              '/Volumes/gis_data/customers/Blauwald/Duttenstein/image_processing_data/label/Label__Duttenstein__sarah__v1.geojson']},
+label_last_dict = {'Blauwald': {'Duttenstein': ['/Volumes/gis_data/customers/Blauwald/Duttenstein/image_processing_data/labels/Label__Duttenstein__david__v1.geojson',
+                              '/Volumes/gis_data/customers/Blauwald/Duttenstein/image_processing_data/labels/Label__Duttenstein__felix__v1.geojson',
+                              '/Volumes/gis_data/customers/Blauwald/Duttenstein/image_processing_data/labels/Label__Duttenstein__sarah__v1.geojson']},
  'Fugger': {'Wellenburg': ['/Volumes/gis_data/customers/Fugger/Wellenburg/image_processing_data/labels/Label__Wellenburg__incl_fir__v2.geojson',
                            '/Volumes/gis_data/customers/Fugger/Wellenburg/image_processing_data/labels/Label__Wellenburg__v2.geojson']},
+ 'GrafSpreti': {'Lotzbeck': ['/Volumes/gis_data/customers/GrafSpreti/Lotzbeck/image_processing_data/labels/Label__Lotzbeck_1__luca__v1.geojson',
+                             '/Volumes/gis_data/customers/GrafSpreti/Lotzbeck/image_processing_data/labels/Label__Lotzbeck_4__hasan__v1.geojson']},
  'ToeringJettenbach': {'Jettenbach': ['/Volumes/gis_data/customers/ToeringJettenbach/Jettenbach/image_processing_data/labels/Label__Jettenbach_12__2021_08_02-07_19_122__v1.geojson',
                                       '/Volumes/gis_data/customers/ToeringJettenbach/Jettenbach/image_processing_data/labels/Label__Jettenbach_12__2021_08_02-07_19_122__v2.geojson',
                                       '/Volumes/gis_data/customers/ToeringJettenbach/Jettenbach/image_processing_data/labels/Label__Jettenbach_12__2021_08_02-07_19_122__v3.geojson',
@@ -193,8 +195,6 @@ label_last_dict = {'Blauwald': {'Duttenstein': ['/Volumes/gis_data/customers/Bla
                                       '/Volumes/gis_data/customers/ToeringJettenbach/Winhoering/image_processing_data/labels/Label__Winhoering_2____v4.geojson',
                                       '/Volumes/gis_data/customers/ToeringJettenbach/Winhoering/image_processing_data/labels/Label__Winhoering_3__SarahChristian__v3.geojson',
                                       '/Volumes/gis_data/customers/ToeringJettenbach/Winhoering/image_processing_data/labels/Label__Winhoering_3____v4.geojson',
-                                      '/Volumes/gis_data/customers/ToeringJettenbach/Winhoering/image_processing_data/labels/trash/Label__Winhoering_3__SarahChristian__v1.geojson',
-                                      '/Volumes/gis_data/customers/ToeringJettenbach/Winhoering/image_processing_data/labels/trash/Label__Winhoering_3__SarahChristian__v2.geojson',
                                       '/Volumes/gis_data/customers/ToeringJettenbach/Winhoering/temp/Label__Winhoering_1____v1_raw.geojson',
                                       '/Volumes/gis_data/customers/ToeringJettenbach/Winhoering/temp/Label__Winhoering_2____v1_raw.geojson']},
  'VonPfuel': {'Tuessling': ['/Volumes/gis_data/customers/VonPfuel/Tuessling/image_processing_data/labels/Label__Tuessling_1__66mm__1050mm__2021_09_22-12_58_58.geojson',
