@@ -7,3 +7,4 @@ test/**
 __pycache__/
 test/data.py
 test/test2.py
+.DS_Store
