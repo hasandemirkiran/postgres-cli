@@ -1,42 +1,46 @@
 # Just run this cript to upload one geojson file to the postgis database # Imports
-from geoalchemy2 import Geometry, WKTElement
-from shapely.geometry import geo
-from sqlalchemy import *
-import pandas as pd
-import geopandas as gpd
-import extract_info
-import count_number_of_rows
-import pprint
-from geopandas import GeoSeries
-from shapely.geometry import Polygon
-import itertools
-import os
-import find_ortho_of_the_label
-import get_ortho_file_id_with_query
 import argparse
+import itertools
+import pprint
+
+import geopandas as gpd
+import pandas as pd
+from geoalchemy2 import Geometry, WKTElement
+from geopandas import GeoSeries
+from postgres_cli.upload_geoJson_file import (
+    count_number_of_rows,
+    extract_info,
+    find_ortho_of_the_label,
+    get_ortho_file_id_with_query,
+)
+from shapely.geometry import Polygon, geo
+from sqlalchemy import *
 
 
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Process some integers.")
+def main():
+    parser = argparse.ArgumentParser(description="Process.")
+    parser.add_argument("initial_path", type=str, help="Initial path of the NAS.")
     parser.add_argument(
         "file", type=str, help="Path to the file, does not have to be the full path. "
     )
+
     parser.add_argument(
-        "-o",
-        "--option",
-        type=str,
-        choices=["upload", "show-data"],
+        "-s",
+        "--show_data",
+        action='store_true',
         help="Optional comment to show the data or directly upload",
     )
+
+
     args = parser.parse_args()
 
     # Creating SQLAlchemy's engine to use
     engine = create_engine(
-        "postgresql://postgres:PdUfpcWSYh4y3Cg@geodb.c6pejgcymcj0.eu-central-1.rds.amazonaws.com:5432/postgres_backup"
+        "postgresql://postgres:PdUfpcWSYh4y3Cg@geodb.c6pejgcymcj0.eu-central-1.rds.amazonaws.com:5432/postgres"
     )
 
-    url = args.file
-    ortho_url = find_ortho_of_the_label.find_ortho(url)[0]
+    url = args.initial_path + args.file
+    ortho_url = find_ortho_of_the_label.find_ortho(url, args.initial_path)[0]
     ortho_id = get_ortho_file_id_with_query.get_raster_id(ortho_url)
 
     # url = repr(os.path.abspath(_URL_))[1:-1]
@@ -65,7 +69,7 @@ if __name__ == "__main__":
         url_tuple, id_label_session_iter, id_label_iter, id_label_feature_iter
     )
 
-    if args.option == "show-data":
+    if args.show_data:
         pprint.pprint(label_session_table_gdf)
         print("=======================================================================")
         pprint.pprint(label_table_gdf)
@@ -92,8 +96,8 @@ if __name__ == "__main__":
         label_table_gdf["label_area_epsg_3857"] = label_table_gdf[
             "geom_EPSG3857"
         ].apply(lambda x: WKTElement(x.wkt, srid=3857))
-        label_table_gdf.drop("geom_EPSG4326", 1, inplace=True)
-        label_table_gdf.drop("geom_EPSG3857", 1, inplace=True)
+        label_table_gdf.drop("geom_EPSG4326", axis=1, inplace=True)
+        label_table_gdf.drop("geom_EPSG3857", axis=1, inplace=True)
         label_table_gdf.to_sql(
             "label",
             engine,
@@ -109,7 +113,7 @@ if __name__ == "__main__":
         label_feature_table_gdf["feature_area"] = label_feature_table_gdf["geom"].apply(
             lambda x: WKTElement(x.wkt, srid=4326)
         )
-        label_feature_table_gdf.drop("geom", 1, inplace=True)
+        label_feature_table_gdf.drop("geom", axis=1, inplace=True)
         label_feature_table_gdf.to_sql(
             "label_feature",
             engine,
@@ -117,3 +121,7 @@ if __name__ == "__main__":
             index=False,
             dtype={"feature_area": Geometry("POINT", srid=4326)},
         )
+
+
+if __name__ == "__main__":
+    main()

@@ -17,6 +17,7 @@ def get_raster_id(raster_url):
 
 
 if __name__ == "__main__":
-    get_raster_id(
-        "\\\\192.168.37.4\\gis_data\\customers\\Wallerstein\\Dist_12_13\\raster\\Orthos\\Ortho__Dist_12_13__67mm__1070mm__2021_06_14.gpkg"
-    )
+    # get_raster_id(
+    #     "\\\\192.168.37.4\\gis_data\\customers\\Wallerstein\\Dist_12_13\\raster\\Orthos\\Ortho__Dist_12_13__67mm__1070mm__2021_06_14.gpkg"
+    # )
+    pass
