@@ -21,6 +21,9 @@ black = "^21.11b1"
 psycopg2-binary = "^2.9.2"
 
 [tool.poetry.dev-dependencies]
+[tool.poetry.scripts]
+upload_geoJson_file = 'postgres_cli.upload_geoJson_file.upload_geoJson_file:main'
+
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
