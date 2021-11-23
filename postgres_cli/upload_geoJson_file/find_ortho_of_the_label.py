@@ -24,12 +24,12 @@ def get_ortho_urls_from_database():
     return ortho_url_list
 
 
-def get_bounds_of_orthos(ortho_url_list):
+def get_bounds_of_orthos(ortho_url_list, initial_path):
 
     ortho_url_bounds_dict = {}
 
     for ortho_url in ortho_url_list:
-        raster = rasterio.open(ortho_url)
+        raster = rasterio.open(initial_path+ortho_url)
         raster_bounding_box = raster.bounds
         raster_format = raster.crs
         raster_bounds = []
@@ -100,9 +100,9 @@ def compare_one_label_one_ortho_file(raster_bounds, label_bbox_list, url):
     return verified
 
 
-def find_most_matched_ortho(label_bbox_list):
+def find_most_matched_ortho(label_bbox_list, initial_path):
     ortho_url_list = get_ortho_urls_from_database()
-    ortho_url_bounds_dict = get_bounds_of_orthos(ortho_url_list)
+    ortho_url_bounds_dict = get_bounds_of_orthos(ortho_url_list, initial_path)
 
     ortho_verified_dict = {}
     for url in ortho_url_bounds_dict:
@@ -113,10 +113,10 @@ def find_most_matched_ortho(label_bbox_list):
     return ortho_verified_dict
 
 
-def find_ortho(label_url):
+def find_ortho(label_url, initial_path):
     label_bbox_list = get_label_bboxes(label_url)
 
-    ortho_verified_dict = find_most_matched_ortho(label_bbox_list)
+    ortho_verified_dict = find_most_matched_ortho(label_bbox_list, initial_path)
     max_verified_tuple = [0, 0]
     for url in ortho_verified_dict:
         if ortho_verified_dict[url] > max_verified_tuple[1]:
@@ -126,8 +126,9 @@ def find_ortho(label_url):
 
 
 if __name__ == "__main__":
-    label_url = (
-        r"c:\Users\hasan\OneDrive\Masaüstü\Label__Dist_12_13__winter__v2.geojson"
-    )
-    ortho_url_match = find_ortho(label_url)
-    print(ortho_url_match)
+    # label_url = (
+    #     r"c:\Users\hasan\OneDrive\Masaüstü\Label__Dist_12_13__winter__v2.geojson"
+    # )
+    # ortho_url_match = find_ortho(label_url)
+    # print(ortho_url_match)
+    print('main')
