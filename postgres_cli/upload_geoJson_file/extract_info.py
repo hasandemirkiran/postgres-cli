@@ -6,9 +6,9 @@ from shapely.geometry import box
 from sqlalchemy import *
 from sqlalchemy.sql.expression import label
 import itertools
-import count_number_of_rows
+from postgres_cli.upload_geoJson_file import count_number_of_rows
+import pprint
 import os
-
 
 def get_data_geoJson(
     url_tuple, id_label_session_iter, id_label_iter, id_label_feature_iter
@@ -52,7 +52,7 @@ def get_data_geoJson(
     label_session_table_raster_info_id = []
     label_session_table_raster_info_id.append(url_tuple[1])
     label_session_table_name = []
-    name = url.split(r"\\")[-1].split("__")[1]
+    name = url.split(r"/")[-1].split("__")[1]
     label_session_table_name.append(name)
 
     label_session_table_df = gpd.GeoDataFrame(
