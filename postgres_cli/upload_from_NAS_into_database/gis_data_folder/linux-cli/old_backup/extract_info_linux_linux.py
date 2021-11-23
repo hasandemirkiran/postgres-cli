@@ -22,8 +22,18 @@ def get_data_geoJson(url):
         "Pine": 4,
         "Leaved Tree": 5,
         "Dead Tree": 6,
-        "Leaved Tree": 7,
+        "Young Tree": 7,
+        "Background": 8,
+        "Unknown": 9,
+        "done": 10,
+        "Dead Pine": 11,
+        "Douglas fir": 12,
+        "healthy": 13,
+        "dead": 14,
+        "affected": 15,
+        "no class": 16,
     }
+
 
     geojson_gpd = gpd.read_file(url)
 
