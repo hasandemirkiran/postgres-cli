@@ -34,7 +34,6 @@ def get_data_geoJson(url):
         "no class": 16,
     }
 
-
     geojson_gpd = gpd.read_file(url)
 
     # --- label_session table entries ---

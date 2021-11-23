@@ -10,6 +10,7 @@ from postgres_cli.upload_geoJson_file import count_number_of_rows
 import pprint
 import os
 
+
 def get_data_geoJson(
     url_tuple, id_label_session_iter, id_label_iter, id_label_feature_iter
 ):

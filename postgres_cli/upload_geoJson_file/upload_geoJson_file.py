@@ -27,10 +27,9 @@ def main():
     parser.add_argument(
         "-s",
         "--show_data",
-        action='store_true',
+        action="store_true",
         help="Optional comment to show the data or directly upload",
     )
-
 
     args = parser.parse_args()
 
@@ -90,12 +89,9 @@ def main():
         )
 
         # upload label_table
-        label_table_gdf["label_area_epsg_4326"] = label_table_gdf[
-            "geom_EPSG4326"
-        ].apply(lambda x: WKTElement(x.wkt, srid=4326))
-        label_table_gdf["label_area_epsg_3857"] = label_table_gdf[
-            "geom_EPSG3857"
-        ].apply(lambda x: WKTElement(x.wkt, srid=3857))
+        label_table_gdf["label_area"] = label_table_gdf["geom_EPSG4326"].apply(
+            lambda x: WKTElement(x.wkt, srid=4326)
+        )
         label_table_gdf.drop("geom_EPSG4326", axis=1, inplace=True)
         label_table_gdf.drop("geom_EPSG3857", axis=1, inplace=True)
         label_table_gdf.to_sql(
@@ -104,8 +100,7 @@ def main():
             if_exists="append",
             index=False,
             dtype={
-                "label_area_epsg_4326": Geometry("POINT", srid=4326),
-                "label_area_epsg_3857": Geometry("POINT", srid=3857),
+                "label_area": Geometry("POINT", srid=4326),
             },
         )
 

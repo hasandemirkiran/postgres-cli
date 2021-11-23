@@ -29,7 +29,7 @@ def get_bounds_of_orthos(ortho_url_list, initial_path):
     ortho_url_bounds_dict = {}
 
     for ortho_url in ortho_url_list:
-        raster = rasterio.open(initial_path+ortho_url)
+        raster = rasterio.open(initial_path + ortho_url)
         raster_bounding_box = raster.bounds
         raster_format = raster.crs
         raster_bounds = []
@@ -131,4 +131,4 @@ if __name__ == "__main__":
     # )
     # ortho_url_match = find_ortho(label_url)
     # print(ortho_url_match)
-    print('main')
+    print("main")
