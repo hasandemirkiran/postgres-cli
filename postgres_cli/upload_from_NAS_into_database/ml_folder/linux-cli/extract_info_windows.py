@@ -49,7 +49,7 @@ def get_data_geoJson(
     label_session_table_raster_info_id = []
     label_session_table_raster_info_id.append(url_tuple[1])
     label_session_table_name = []
-    name = url.split(r"\\")[-1].split("_")[1]
+    name = url.split("/")[-1].split("_")[1]
     label_session_table_name.append(name)
     label_session_table_df = gpd.GeoDataFrame(
         list(
