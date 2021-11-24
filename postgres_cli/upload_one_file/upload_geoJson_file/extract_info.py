@@ -6,7 +6,7 @@ from shapely.geometry import box
 from sqlalchemy import *
 from sqlalchemy.sql.expression import label
 import itertools
-from postgres_cli.upload_geoJson_file import count_number_of_rows
+from postgres_cli.upload_one_file.upload_geoJson_file import count_number_of_rows
 import pprint
 import os
 
