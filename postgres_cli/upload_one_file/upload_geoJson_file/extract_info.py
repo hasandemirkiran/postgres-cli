@@ -55,18 +55,9 @@ def get_data_geoJson(
     label_session_table_name = []
     name = url.split(r"/")[-1].split("__")[1]
     label_session_table_name.append(name)
+    label_session_table_classification = []
+    classification_flag = True 
 
-    label_session_table_df = gpd.GeoDataFrame(
-        list(
-            zip(
-                label_session_table_id,
-                label_session_table_name,
-                label_session_table_session_area,
-                label_session_table_raster_info_id,
-            )
-        ),
-        columns=["id", "name", "geom", "raster_info_id"],
-    )
 
     # --- label table entries ---
     num_of_bbox = geojson_gpd.bbox_id.values.max() + 1
@@ -130,6 +121,27 @@ def get_data_geoJson(
 
     label_feature_table_feature_area = geojson_gpd.loc[:, "geometry"]
     label_feature_table_class_id = [class_dict[x] for x in label_feature_class]
+    
+    if 9 in label_feature_table_class_id or 16 in label_feature_table_class_id:
+        classification_flag = False
+
+    label_session_table_classification.append(classification_flag)
+
+    # Create pandas Dataframes 
+
+    label_session_table_df = gpd.GeoDataFrame(
+        list(
+            zip(
+                label_session_table_id,
+                label_session_table_name,
+                label_session_table_session_area,
+                label_session_table_raster_info_id,
+                label_session_table_classification,
+            )
+        ),
+        columns=["id", "name", "geom", "raster_info_id", "classification"],
+    )
+
     label_feature_table_df = gpd.GeoDataFrame(
         list(
             zip(
@@ -148,11 +160,7 @@ def get_data_geoJson(
 
 
 if __name__ == "__main__":
-    url = repr(
-        os.path.abspath(
-            r"c:\Users\hasan\OneDrive\Masaüstü\Label__Dist_12_13__winter__v2.geojson"
-        )
-    )[1:-1]
+    url = '/Volumes/gis_data/customers/HofosOldershausen/Breitenbach/image_processing_data/labels/Label__Breitenbach__luca__v3.geojson'
     url_tuple = (url, 993280764)
     label_session_table_number_of_rows = count_number_of_rows.count_rows_of_table(
         "label_session"
