@@ -7,7 +7,7 @@ import geopandas as gpd
 import pandas as pd
 from geoalchemy2 import Geometry, WKTElement
 from geopandas import GeoSeries
-from postgres_cli.upload_geoJson_file import (
+from postgres_cli.upload_one_file.upload_geoJson_file import (
     count_number_of_rows,
     extract_info,
     find_ortho_of_the_label,
