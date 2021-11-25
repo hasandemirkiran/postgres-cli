@@ -30,7 +30,7 @@ def get_data_geoJson(
         "Unknown": 9,
         "done": 10,
         "Dead Pine": 11,
-        "Douglas fir": 12,
+        "Eastern White Pine": 12,
         "healthy": 13,
         "dead": 14,
         "affected": 15,
