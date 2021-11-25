@@ -7,12 +7,10 @@ base_config = {
     },
     "Albunet": {
         "resnet_size": 18,
-        "pretrained": True, 
+        "pretrained": True,
     },
     "adam": {"lr": 0.001},
     "make_loader": {"batch_size": 12},
-    "do_training": {"epochs": 1500}, 
+    "do_training": {"epochs": 1500},
     "make_dataset_max_size": 8,
 }
-
-

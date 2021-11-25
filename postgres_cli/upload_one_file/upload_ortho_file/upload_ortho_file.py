@@ -4,6 +4,7 @@ import uuid
 import pandas as pd
 import pprint
 
+
 def pick_from_ortho_dict(url):
     ortho_list_to_upload = []
 
@@ -43,6 +44,7 @@ def pick_from_ortho_dict(url):
 
     return ortho_df
 
+
 def main_ortho(args):
 
     engine = create_engine(
@@ -51,18 +53,21 @@ def main_ortho(args):
     url = args.initial_path + args.file
 
     ortho_df = pick_from_ortho_dict(url)
-    
+
     if args.show_data:
         pprint.pprint(ortho_df)
     else:
         ortho_df.rename(
-            columns={"region_part": "name", "date": "recording_start_date"}, inplace=True
+            columns={"region_part": "name", "date": "recording_start_date"},
+            inplace=True,
         )
         ortho_df_to_upload = ortho_df[
             ["id", "name", "gsd", "resolution", "recording_start_date", "url"]
         ]
-        ortho_df_to_upload.to_sql("raster_info", con=engine, if_exists="append", index=False)
+        ortho_df_to_upload.to_sql(
+            "raster_info", con=engine, if_exists="append", index=False
+        )
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main_ortho()
