@@ -110,15 +110,15 @@ def return_all_labels_for_region(region: str):
     Starting from the name of a region return all the avaiable labels for that region
     Feature ID, Feature coordinates, tree class, lable ID, Session ID, the raster url and the tree presence percentage
     """
-    query = "SELECT F.id AS feature_id, ST_x(F.feature_area) AS feature_coordinate_x ,ST_y(F.feature_area) AS feature_coordinate_y, TC.name AS tree_type,\
-            L.id AS label_id, ST_AsGeoJSON(L.label_area) AS label_area, S.id AS session_id, R.url AS raster_url\
-            FROM public.label_session AS S  \
-            JOIN public.label AS L ON L.session_id = S.id  \
-            JOIN public.label_feature AS F ON F.label_id = L.id  \
-            JOIN public.tree_class AS TC ON TC.id = F.class_id  \
-            JOIN public.raster_info AS R ON R.id = S.raster_info_id  \
-            WHERE S.name= '{}' \
-            ORDER BY S.name;".format(
+    query = """SELECT	F.id AS feature_id, ST_x(F.feature_area) AS feature_coordinate_x, ST_y(F.feature_area) AS feature_coordinate_y,	ST_AsGeoJSON(L.label_area) AS label_area, 
+		    TR.name AS tree_type, L.id AS label_id,	S.id AS session_id,	R.url AS raster_url, S.name AS region_name 
+            FROM public.label_feature AS F 
+	        JOIN public.label AS L ON L.id = F.label_id 
+	        JOIN public.label_session AS S ON S.id = L.session_id 
+	        JOIN public.raster_info AS R ON R.id = S.raster_info_id 
+	        JOIN public.tree_class AS TR ON TR.id = F.class_id 
+            WHERE S.name= '{}' 
+            ORDER BY S.name;""".format(
         region
     )
     return query

@@ -83,9 +83,9 @@ def fetch_from_label_db(query):
 
 def crs_converter(coordinates, input_epsg, output_epsg):
     transformer = Transformer.from_crs(
-        "epsg:{}".format(input_epsg), "epsg:{}".format(output_epsg)
-    )
-    x, y = transformer.transform(coordinates[0], coordinates[1])
+        "epsg:{}".format(input_epsg), "epsg:{}".format(output_epsg), always_xy=True
+    ).transform
+    x, y = transformer(coordinates[0], coordinates[1])
     return [x, y]
     # return transformer.transform(coordinates[0], coordinates[1])
 
@@ -131,9 +131,15 @@ def label_data_creator(queried_data, out_folder):
                 boxes = []
         tmp = json.loads(row["label_area"])
         coordinates = find_bbox_bounds(tmp["coordinates"][0])
-        ll = crs_converter([coordinates[0], coordinates[1]], 4326, 3857)
-        ur = crs_converter([coordinates[2], coordinates[3]], 4326, 3857)
-        box = [ll[0], ll[1], ur[0], ur[1]]
+        # ll = crs_converter([coordinates[0], coordinates[1]], 4326, 3857)
+        # ur = crs_converter([coordinates[2], coordinates[3]], 4326, 3857)
+        box = [
+            coordinates[0],
+            coordinates[1],
+            coordinates[2],
+            coordinates[3],
+        ]  # [ll[0], ll[1], ur[0], ur[1]]
+
         if boxes:
             for z, bb in enumerate(boxes):
                 if box == bb:
@@ -144,26 +150,20 @@ def label_data_creator(queried_data, out_folder):
                     box_id = z + 1
         else:
             boxes.append(box)
-
         features.append(
             Feature(
                 geometry=Point(
                     (row["feature_coordinate_x"], row["feature_coordinate_y"]),
                     precision=14,
                 ),
-                properties={"class": row["tree_type"], "bbox_id": box_id},
-                # bbox=box,
+                properties={
+                    "fid": int(0),
+                    "class": row["tree_type"],
+                    "bbox_id": int(box_id),
+                },
                 bbox=[coordinates[0], coordinates[1], coordinates[2], coordinates[3]],
             )
         )
-        """
-        features[-1]["bbox"] = [
-            coordinates[0],
-            coordinates[1],
-            coordinates[2],
-            coordinates[3]
-        ]
-        """
 
         # Save final data
         if index >= queried_data.shape[0] - 1:
@@ -323,60 +323,16 @@ if __name__ == "__main__":
             query = queries_file.return_all_labels_for_region(args.region)
 
             ### TO DELETE --------------
-            query = query.replace(";", "")
-            query = query + " LIMIT 1000;"
+            # query = query.replace(";", "")
+            # query = query + " LIMIT 1000;"
             # --------------------------
 
             # Fetch data
             data = fetch_from_label_db(query)
 
             # Reformat data
-            features = []
-            boxes = []
-            box_id = 0
-            for index, row in data.iterrows():
-                tmp = json.loads(row["label_area"])
-                coordinates = find_bbox_bounds(tmp["coordinates"][0])
-                box = [coordinates[0], coordinates[1], coordinates[2], coordinates[3]]
-                if boxes:
-                    for z, bb in enumerate(boxes):
-                        if box == bb:
-                            box_id = z
-                            break
-                        if z == len(boxes) - 1:
-                            boxes.append(box)
-                            box_id = z + 1
-                else:
-                    boxes.append(box)
-                    features.append(
-                        Feature(
-                            geometry=Point(
-                                (
-                                    row["feature_coordinate_x"],
-                                    row["feature_coordinate_y"],
-                                ),
-                                precision=14,
-                            ),
-                            properties={
-                                "class": row["tree_type"],
-                                "bbox_id": int(box_id),
-                            },
-                            bbox=[
-                                coordinates[0],
-                                coordinates[1],
-                                coordinates[2],
-                                coordinates[3],
-                            ],
-                        )
-                    )  # Be aware, the bbox id is not the same of the original label file
+            label_data_creator(data, out_folder)
 
-            # Save data
-            create_label_file(features, out_folder, args.region)
-            update_config(
-                config, os.path.join(out_folder, args.region), row["raster_url"]
-            )
-            print("--created {} with {} points".format(args.region, len(features)))
-            print("Requested data was created!")
         except Exception as error:
             print("Invalid input parameters!", error)
             quit()
