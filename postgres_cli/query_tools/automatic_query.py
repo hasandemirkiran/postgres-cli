@@ -8,6 +8,7 @@ from geojson import Point, Feature, FeatureCollection, dump, Polygon
 import json
 import yaml
 from copy import deepcopy
+from pyproj import Proj, Transformer
 
 from configs.classification_problem_config import base_config
 from utils import queries_file
@@ -80,6 +81,15 @@ def fetch_from_label_db(query):
         return fetched_data
 
 
+def crs_converter(coordinates, input_epsg, output_epsg):
+    transformer = Transformer.from_crs(
+        "epsg:{}".format(input_epsg), "epsg:{}".format(output_epsg)
+    )
+    x, y = transformer.transform(coordinates[0], coordinates[1])
+    return [x, y]
+    # return transformer.transform(coordinates[0], coordinates[1])
+
+
 def find_bbox_bounds(coords):
     summa = []
     for i in range(len(coords)):
@@ -99,26 +109,41 @@ def label_data_creator(queried_data, out_folder):
     actual_raster = None
     for index, row in queried_data.iterrows():
         name = row["region_name"]
+        box_id = 0
         if actual_region == None:
             features = []
+            boxes = []
             actual_region = name
             actual_raster = row["raster_url"]
         else:
             # Save intermediate data
             if actual_region != name:
-                create_label_file(features, out_folder, actual_region)
+                create_label_file(features, boxes, out_folder, actual_region)
                 update_config(
                     config, os.path.join(out_folder, actual_region), actual_raster
                 )
                 print(
                     "--created {} with {} points".format(actual_region, len(features))
                 )
-                print(actual_raster)
                 actual_region = name
                 actual_raster = row["raster_url"]
                 features = []
+                boxes = []
         tmp = json.loads(row["label_area"])
         coordinates = find_bbox_bounds(tmp["coordinates"][0])
+        ll = crs_converter([coordinates[0], coordinates[1]], 4326, 3857)
+        ur = crs_converter([coordinates[2], coordinates[3]], 4326, 3857)
+        box = [ll[0], ll[1], ur[0], ur[1]]
+        if boxes:
+            for z, bb in enumerate(boxes):
+                if box == bb:
+                    box_id = z
+                    break
+                if z == len(boxes) - 1:
+                    boxes.append(box)
+                    box_id = z + 1
+        else:
+            boxes.append(box)
 
         features.append(
             Feature(
@@ -126,14 +151,23 @@ def label_data_creator(queried_data, out_folder):
                     (row["feature_coordinate_x"], row["feature_coordinate_y"]),
                     precision=14,
                 ),
-                properties={"class": row["tree_type"], "bbox_id": row["label_id"]},
+                properties={"class": row["tree_type"], "bbox_id": box_id},
+                # bbox=box,
                 bbox=[coordinates[0], coordinates[1], coordinates[2], coordinates[3]],
             )
-        )  # Be aware, the bbox id is not the same of the original label file
+        )
+        """
+        features[-1]["bbox"] = [
+            coordinates[0],
+            coordinates[1],
+            coordinates[2],
+            coordinates[3]
+        ]
+        """
 
         # Save final data
         if index >= queried_data.shape[0] - 1:
-            create_label_file(features, out_folder, actual_region)
+            create_label_file(features, boxes, out_folder, actual_region)
             update_config(
                 config, os.path.join(out_folder, actual_region), actual_raster
             )
@@ -152,8 +186,11 @@ def update_config(config, label_path, raster_path):
     )
 
 
-def create_label_file(features, out_folder, region_name):
+def create_label_file(features, boxes, out_folder, region_name):
     feature_collection = FeatureCollection(features)
+    feature_collection.boxes = []
+    for box in boxes:
+        feature_collection.boxes.append(box)
     save_path = os.path.join(out_folder, region_name)
     with open("{}.geojson".format(save_path), "w") as f:
         dump(feature_collection, f)
@@ -295,27 +332,43 @@ if __name__ == "__main__":
 
             # Reformat data
             features = []
+            boxes = []
+            box_id = 0
             for index, row in data.iterrows():
                 tmp = json.loads(row["label_area"])
                 coordinates = find_bbox_bounds(tmp["coordinates"][0])
-                features.append(
-                    Feature(
-                        geometry=Point(
-                            (row["feature_coordinate_x"], row["feature_coordinate_y"]),
-                            precision=14,
-                        ),
-                        properties={
-                            "class": row["tree_type"],
-                            "bbox_id": int(row["label_id"]),
-                        },
-                        bbox=[
-                            coordinates[0],
-                            coordinates[1],
-                            coordinates[2],
-                            coordinates[3],
-                        ],
-                    )
-                )  # Be aware, the bbox id is not the same of the original label file
+                box = [coordinates[0], coordinates[1], coordinates[2], coordinates[3]]
+                if boxes:
+                    for z, bb in enumerate(boxes):
+                        if box == bb:
+                            box_id = z
+                            break
+                        if z == len(boxes) - 1:
+                            boxes.append(box)
+                            box_id = z + 1
+                else:
+                    boxes.append(box)
+                    features.append(
+                        Feature(
+                            geometry=Point(
+                                (
+                                    row["feature_coordinate_x"],
+                                    row["feature_coordinate_y"],
+                                ),
+                                precision=14,
+                            ),
+                            properties={
+                                "class": row["tree_type"],
+                                "bbox_id": int(box_id),
+                            },
+                            bbox=[
+                                coordinates[0],
+                                coordinates[1],
+                                coordinates[2],
+                                coordinates[3],
+                            ],
+                        )
+                    )  # Be aware, the bbox id is not the same of the original label file
 
             # Save data
             create_label_file(features, out_folder, args.region)
