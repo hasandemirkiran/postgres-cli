@@ -117,9 +117,7 @@ def label_data_creator(queried_data, out_folder):
             # Save intermediate data
             if actual_region != name:
                 create_label_file(features, boxes, out_folder, actual_region)
-                update_config(
-                    config, os.path.join(out_folder, actual_region), actual_raster
-                )
+                update_config(config, out_folder, actual_region, actual_raster)
                 print(
                     "--created {} with {} points".format(actual_region, len(features))
                 )
@@ -148,20 +146,19 @@ def label_data_creator(queried_data, out_folder):
         # Save final data
         if index >= queried_data.shape[0] - 1:
             create_label_file(features, boxes, out_folder, actual_region)
-            update_config(
-                config, os.path.join(out_folder, actual_region), actual_raster
-            )
-            print("--created {} with {} points".format(actual_region, len(features)))
+            update_config(config, out_folder, actual_region, actual_raster)
+            print("--created {} with {} features".format(actual_region, len(features)))
             print("Requested data was created!")
 
 
-def update_config(config, label_path, raster_path):
+def update_config(config, out_folder, actual_region, raster_path):
+    label_path = os.path.join(out_folder, "Label__" + actual_region + "__labelDB__v0")
     config["make_label_mappings"] = {
         "label_path": os.path.abspath(label_path) + ".geojson"
     }
     config["make_dataset__list"].append(
         {
-            "image_path": os.path.abspath(raster_path),
+            "image_path": "/mnt/nas" + os.path.abspath(raster_path),
             "label_path": os.path.abspath(label_path) + ".geojson",
             "splits": 0,
         }
@@ -343,7 +340,7 @@ if __name__ == "__main__":
             else:
                 last_month = months[str(args.last_month).lower()]
 
-            if last_month > first_month:
+            if last_month >= first_month:
                 # Configure the query
                 query = queries_file.return_all_region_for_same_months(
                     first_month, last_month
