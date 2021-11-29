@@ -279,11 +279,6 @@ if __name__ == "__main__":
                 args.max_percentage,
             )
 
-            ### TO DELETE --------------
-            query = query.replace(";", "")
-            query = query + " LIMIT 1000;"
-            # --------------------------
-
             # Fetch data
             data = fetch_from_label_db(query)
 
@@ -301,11 +296,6 @@ if __name__ == "__main__":
         try:
             # Configure the query
             query = queries_file.return_all_labels_for_region(args.region)
-
-            ### TO DELETE --------------
-            query = query.replace(";", "")
-            query = query + " LIMIT 1000;"
-            # --------------------------
 
             # Fetch data
             data = fetch_from_label_db(query)
@@ -326,11 +316,6 @@ if __name__ == "__main__":
             query = queries_file.return_all_region_for_temporal_interval(
                 args.start_date, args.end_date
             )
-
-            ### TO DELETE --------------
-            query = query.replace(";", "")
-            query = query + " LIMIT 1000;"
-            # --------------------------
 
             # Fetch data
             data = fetch_from_label_db(query)
@@ -363,30 +348,15 @@ if __name__ == "__main__":
                 query = queries_file.return_all_region_for_same_months(
                     first_month, last_month
                 )
-                ### TO DELETE --------------
-                query = query.replace(";", "")
-                query = query + " LIMIT 1000;"
-                # --------------------------
-
                 # Fetch data
                 data = fetch_from_label_db(query)
             else:
+                # Configure the query
                 q1 = queries_file.return_all_region_for_same_months(first_month, 12)
-                ### TO DELETE --------------
-                q1 = q1.replace(";", "")
-                q1 = q1 + " LIMIT 1000;"
-                # --------------------------
+                q2 = queries_file.return_all_region_for_same_months(1, last_month)
 
                 # Fetch data
                 d1 = fetch_from_label_db(q1)
-
-                q2 = queries_file.return_all_region_for_same_months(1, last_month)
-                ### TO DELETE --------------
-                q2 = q2.replace(";", "")
-                q2 = q2 + " LIMIT 1000;"
-                # --------------------------
-
-                # Fetch data
                 d2 = fetch_from_label_db(q2)
 
                 data = pd.concat([d1, d2])
@@ -400,7 +370,7 @@ if __name__ == "__main__":
 
     else:
         print(
-            "Invalid query type! Be sure to set properly --start_date and --days parameters"
+            "Invalid query type! Be sure to set properly --first_month and --last_month parameters"
         )
 
     # Save configuration as YAML file
