@@ -78,10 +78,29 @@ def return_all_region_by_tree_type_percentage(tree_class: str, min=0, max=100):
             JOIN SessionRaster AS SR ON SR.session_id = SL.session_id 
             JOIN public.label_feature AS F ON F.label_id = SL.label_id 
             JOIN public.tree_class AS TR ON TR.id = F.class_id 
-            ORDER BY region_name""".format(
+            ORDER BY region_name ASC""".format(
         tree_class, min, max
     )
     # ORDER BY label_id".format(tree_class, min, max)
+    return query
+
+
+def return_all_labels_for_region(region: str):
+    """
+    Starting from the name of a region return all the avaiable labels for that region
+    Feature ID, Feature coordinates, tree class, lable ID, Session ID, the raster url and the tree presence percentage
+    """
+    query = """SELECT	F.id AS feature_id, ST_x(F.feature_area) AS feature_coordinate_x, ST_y(F.feature_area) AS feature_coordinate_y,	ST_AsGeoJSON(L.label_area) AS label_area, 
+		    TR.name AS tree_type, L.id AS label_id,	S.id AS session_id,	R.url AS raster_url, S.name AS region_name 
+            FROM public.label_feature AS F 
+	        JOIN public.label AS L ON L.id = F.label_id 
+	        JOIN public.label_session AS S ON S.id = L.session_id 
+	        JOIN public.raster_info AS R ON R.id = S.raster_info_id 
+	        JOIN public.tree_class AS TR ON TR.id = F.class_id 
+            WHERE S.name= '{}' 
+            ORDER BY S.name ASC;""".format(
+        region
+    )
     return query
 
 
@@ -99,26 +118,28 @@ def return_all_region_for_temporal_interval(
 	        JOIN public.label_session AS S ON S.id = L.session_id 
 	        JOIN public.raster_info AS R ON R.id = S.raster_info_id 
 	        JOIN public.tree_class AS TR ON TR.id = F.class_id 
-            WHERE R.recording_start_date between '{} 00:00:00' and '{} 23:59:59' """.format(
+            WHERE R.recording_start_date between '{} 00:00:00' and '{} 23:59:59'
+            ORDER BY S.name ASC; """.format(
         start_date, end_date
     )
     return query
 
 
-def return_all_labels_for_region(region: str):
+def return_all_region_for_same_months(first_month: int, last_month: int):
     """
-    Starting from the name of a region return all the avaiable labels for that region
+    Starting from a specific type of tree and its minimum and maximum presence (in percentage) return the labels with that conditions (and all the trees inside)
     Feature ID, Feature coordinates, tree class, lable ID, Session ID, the raster url and the tree presence percentage
     """
-    query = """SELECT	F.id AS feature_id, ST_x(F.feature_area) AS feature_coordinate_x, ST_y(F.feature_area) AS feature_coordinate_y,	ST_AsGeoJSON(L.label_area) AS label_area, 
-		    TR.name AS tree_type, L.id AS label_id,	S.id AS session_id,	R.url AS raster_url, S.name AS region_name 
-            FROM public.label_feature AS F 
-	        JOIN public.label AS L ON L.id = F.label_id 
-	        JOIN public.label_session AS S ON S.id = L.session_id 
-	        JOIN public.raster_info AS R ON R.id = S.raster_info_id 
-	        JOIN public.tree_class AS TR ON TR.id = F.class_id 
-            WHERE S.name= '{}' 
-            ORDER BY S.name;""".format(
-        region
+    query = """SELECT  F.id AS feature_id, ST_x(F.feature_area) AS feature_coordinate_x, ST_y(F.feature_area) AS feature_coordinate_y,	
+		        ST_AsGeoJSON(L.label_area) AS label_area, TR.name AS tree_type, L.id AS label_id, S.id AS session_id,	
+		        R.url AS raster_url, S.name AS region_name, R.recording_start_date AS acquisition_date
+                FROM public.label_feature AS F 
+                JOIN public.label AS L ON L.id = F.label_id 
+                JOIN public.label_session AS S ON S.id = L.session_id 
+                JOIN public.raster_info AS R ON R.id = S.raster_info_id 
+                JOIN public.tree_class AS TR ON TR.id = F.class_id 
+                WHERE EXTRACT(MONTH FROM R.recording_start_date) BETWEEN {} AND {}
+                ORDER BY S.name ASC; """.format(
+        first_month, last_month
     )
     return query

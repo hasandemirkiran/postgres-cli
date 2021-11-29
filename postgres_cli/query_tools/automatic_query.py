@@ -3,12 +3,12 @@ import argparse
 import psycopg2
 import pandas as pd
 import datetime
+import calendar
 from configparser import ConfigParser, Error
 from geojson import Point, Feature, FeatureCollection, dump, Polygon
 import json
 import yaml
 from copy import deepcopy
-from pyproj import Proj, Transformer
 
 from configs.classification_problem_config import base_config
 from utils import queries_file
@@ -81,16 +81,15 @@ def fetch_from_label_db(query):
         return fetched_data
 
 
-def crs_converter(coordinates, input_epsg, output_epsg):
-    transformer = Transformer.from_crs(
-        "epsg:{}".format(input_epsg), "epsg:{}".format(output_epsg), always_xy=True
-    ).transform
-    x, y = transformer(coordinates[0], coordinates[1])
-    return [x, y]
-    # return transformer.transform(coordinates[0], coordinates[1])
-
-
 def find_bbox_bounds(coords):
+    """Find the lower left and the upper right corners of a bbox
+
+    Args:
+        coords (list of list): list of the corner coordinates
+
+    Returns:
+        list: the cordinates x and y for the lower left corner and for the upper right corner
+    """
     summa = []
     for i in range(len(coords)):
         summa.append(coords[i][0] + coords[i][1])
@@ -109,10 +108,9 @@ def label_data_creator(queried_data, out_folder):
     actual_raster = None
     for index, row in queried_data.iterrows():
         name = row["region_name"]
-        box_id = 0
         if actual_region == None:
             features = []
-            boxes = []
+            boxes = set()
             actual_region = name
             actual_raster = row["raster_url"]
         else:
@@ -128,28 +126,12 @@ def label_data_creator(queried_data, out_folder):
                 actual_region = name
                 actual_raster = row["raster_url"]
                 features = []
-                boxes = []
+                boxes = set()
         tmp = json.loads(row["label_area"])
         coordinates = find_bbox_bounds(tmp["coordinates"][0])
-        # ll = crs_converter([coordinates[0], coordinates[1]], 4326, 3857)
-        # ur = crs_converter([coordinates[2], coordinates[3]], 4326, 3857)
-        box = [
-            coordinates[0],
-            coordinates[1],
-            coordinates[2],
-            coordinates[3],
-        ]  # [ll[0], ll[1], ur[0], ur[1]]
+        box = tuple((coordinates[0], coordinates[1], coordinates[2], coordinates[3]))
+        boxes.add(box)
 
-        if boxes:
-            for z, bb in enumerate(boxes):
-                if box == bb:
-                    box_id = z
-                    break
-                if z == len(boxes) - 1:
-                    boxes.append(box)
-                    box_id = z + 1
-        else:
-            boxes.append(box)
         features.append(
             Feature(
                 geometry=Point(
@@ -157,11 +139,9 @@ def label_data_creator(queried_data, out_folder):
                     precision=14,
                 ),
                 properties={
-                    "fid": int(0),
                     "class": row["tree_type"],
-                    "bbox_id": int(box_id),
                 },
-                bbox=[coordinates[0], coordinates[1], coordinates[2], coordinates[3]],
+                bbox=(box),
             )
         )
 
@@ -176,11 +156,13 @@ def label_data_creator(queried_data, out_folder):
 
 
 def update_config(config, label_path, raster_path):
-    config["make_label_mappings"] = {"label_path": label_path}
+    config["make_label_mappings"] = {
+        "label_path": os.path.abspath(label_path) + ".geojson"
+    }
     config["make_dataset__list"].append(
         {
-            "image_path": raster_path,
-            "label_path": label_path,
+            "image_path": os.path.abspath(raster_path),
+            "label_path": os.path.abspath(label_path) + ".geojson",
             "splits": 0,
         }
     )
@@ -189,9 +171,10 @@ def update_config(config, label_path, raster_path):
 def create_label_file(features, boxes, out_folder, region_name):
     feature_collection = FeatureCollection(features)
     feature_collection.boxes = []
+    lable_file_name = "Label__" + region_name + "__labelDB__v0"
     for box in boxes:
         feature_collection.boxes.append(box)
-    save_path = os.path.join(out_folder, region_name)
+    save_path = os.path.join(out_folder, lable_file_name)
     with open("{}.geojson".format(save_path), "w") as f:
         dump(feature_collection, f)
 
@@ -202,10 +185,11 @@ if __name__ == "__main__":
     parser.add_argument(
         "--query_type",
         choices=[
-            "similar_conditions",
-            "temporal_interval",
+            # "similar_conditions",
             "single_tree_percentage",
             "region_name",
+            "temporal_interval",
+            "same_months",
         ],
         type=str,
         help="Type of query used for the label database.",
@@ -243,26 +227,19 @@ if __name__ == "__main__":
         help="End date for the temporal search. Input format YYYY-MM-DD",
     )
 
-    # similar_season parameters
-    # parser.add_argument("--date", type=datetime.date.fromisoformat, help="Starting date for the temporal search. Input format YYYY-MM-DD")
+    # same_months parameters
     parser.add_argument(
-        "--days",
-        default=10,
-        type=int,
-        help="Interval of days to analyze before and after the starting date. Input format YYYY-MM-DD",
+        "--first_month",
+        type=str,
+        help="First month for the same months search. Write the name of the month (e.g. January)",
     )
     parser.add_argument(
-        "--months",
-        default=0,
-        type=int,
-        help="Interval of months to analyze before and after the starting date. Input format YYYY-MM-DD",
+        "--last_month",
+        type=str,
+        help="Last month for the same months search. Write the name of the month (e.g. January)",
     )
 
-    # parser.add_argument("--max_cloud_presence", type=float, help="Maximum level of cloud presence in the scene")
-    # parser.add_argument("--min_cloud_presence", type=float, help="Minimum level of cloud presence in the scene")
-
-    # parser.add_argument("--starting_date", type=datetime.date.fromisoformat, help="Starting date for the temporal search. Input format YYYY-MM-DD hh:mm")
-
+    # output path
     parser.add_argument("--output_path", type=str, help="Path for the output file")
 
     args = parser.parse_args()
@@ -314,7 +291,10 @@ if __name__ == "__main__":
             label_data_creator(data, out_folder)
 
         except Exception as error:
-            print("Invalid input parameters!", error)
+            print(
+                "Invalid input parameters! Be sure to set properly --reference_tree, --min_perccentage and --max_percentage parameters",
+                error,
+            )
             quit()
 
     elif args.query_type == "region_name":
@@ -323,8 +303,8 @@ if __name__ == "__main__":
             query = queries_file.return_all_labels_for_region(args.region)
 
             ### TO DELETE --------------
-            # query = query.replace(";", "")
-            # query = query + " LIMIT 1000;"
+            query = query.replace(";", "")
+            query = query + " LIMIT 1000;"
             # --------------------------
 
             # Fetch data
@@ -334,7 +314,10 @@ if __name__ == "__main__":
             label_data_creator(data, out_folder)
 
         except Exception as error:
-            print("Invalid input parameters!", error)
+            print(
+                "Invalid input parameters! Be sure to set properly --region parameter",
+                error,
+            )
             quit()
 
     elif args.query_type == "temporal_interval":
@@ -356,11 +339,69 @@ if __name__ == "__main__":
             label_data_creator(data, out_folder)
 
         except Exception as error:
+            print(
+                "Invalid input parameters! Be sure to set properly --start_date and --end_date parameters",
+                error,
+            )
+            quit()
+
+    elif args.query_type == "same_months":
+        try:
+            months = {
+                month.lower(): index
+                for index, month in enumerate(calendar.month_name)
+                if month
+            }
+            first_month = months[str(args.first_month).lower()]
+            if not args.last_month:
+                last_month = first_month
+            else:
+                last_month = months[str(args.last_month).lower()]
+
+            if last_month > first_month:
+                # Configure the query
+                query = queries_file.return_all_region_for_same_months(
+                    first_month, last_month
+                )
+                ### TO DELETE --------------
+                query = query.replace(";", "")
+                query = query + " LIMIT 1000;"
+                # --------------------------
+
+                # Fetch data
+                data = fetch_from_label_db(query)
+            else:
+                q1 = queries_file.return_all_region_for_same_months(first_month, 12)
+                ### TO DELETE --------------
+                q1 = q1.replace(";", "")
+                q1 = q1 + " LIMIT 1000;"
+                # --------------------------
+
+                # Fetch data
+                d1 = fetch_from_label_db(q1)
+
+                q2 = queries_file.return_all_region_for_same_months(1, last_month)
+                ### TO DELETE --------------
+                q2 = q2.replace(";", "")
+                q2 = q2 + " LIMIT 1000;"
+                # --------------------------
+
+                # Fetch data
+                d2 = fetch_from_label_db(q2)
+
+                data = pd.concat([d1, d2])
+
+            # Refromat data and split them by region
+            label_data_creator(data, out_folder)
+
+        except Exception as error:
             print("Invalid input parameters!", error)
             quit()
 
     else:
-        print("Invalid query type!")
+        print(
+            "Invalid query type! Be sure to set properly --start_date and --days parameters"
+        )
 
     # Save configuration as YAML file
     with open(os.path.join(out_folder, "config.yaml"), "w") as outfile:
