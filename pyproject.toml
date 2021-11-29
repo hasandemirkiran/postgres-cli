@@ -17,10 +17,13 @@ rasterio = "1.2.10"
 Shapely = "1.7.1"
 shortuuid = "1.0.1"
 SQLAlchemy = "1.4.25"
-black = "^21.11b1"
 psycopg2-binary = "^2.9.2"
+PyYAML = "^6.0"
+
 
 [tool.poetry.dev-dependencies]
+black = "^21.11b1"
+
 [tool.poetry.scripts]
 upload_file = 'postgres_cli.upload_one_file.upload_one_file:main_upload_file'
 
