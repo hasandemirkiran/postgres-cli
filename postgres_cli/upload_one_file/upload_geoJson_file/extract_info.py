@@ -6,7 +6,7 @@ from shapely.geometry import box
 from sqlalchemy import *
 from sqlalchemy.sql.expression import label
 import itertools
-from postgres_cli.upload_geoJson_file import count_number_of_rows
+from postgres_cli.upload_one_file.upload_geoJson_file import count_number_of_rows
 import pprint
 import os
 
@@ -42,7 +42,7 @@ def get_data_geoJson(
         "Unknown": 9,
         "done": 10,
         "Dead Pine": 11,
-        "Douglas fir": 12,
+        "Eastern White Pine": 12,
         "healthy": 13,
         "dead": 14,
         "affected": 15,
@@ -67,6 +67,8 @@ def get_data_geoJson(
     label_session_table_name = []
     name = url.split(r"/")[-1].split("__")[1]
     label_session_table_name.append(name)
+    label_session_table_classification = []
+    classification_flag = True 
 
     label_session_creator_user_id = []
     user_check = url.split("/")[-1].split("__")
@@ -153,6 +155,27 @@ def get_data_geoJson(
 
     label_feature_table_feature_area = geojson_gpd.loc[:, "geometry"]
     label_feature_table_class_id = [class_dict[x] for x in label_feature_class]
+    
+    if 9 in label_feature_table_class_id or 16 in label_feature_table_class_id:
+        classification_flag = False
+
+    label_session_table_classification.append(classification_flag)
+
+    # Create pandas Dataframes 
+
+    label_session_table_df = gpd.GeoDataFrame(
+        list(
+            zip(
+                label_session_table_id,
+                label_session_table_name,
+                label_session_table_session_area,
+                label_session_table_raster_info_id,
+                label_session_table_classification,
+            )
+        ),
+        columns=["id", "name", "geom", "raster_info_id", "classification"],
+    )
+
     label_feature_table_df = gpd.GeoDataFrame(
         list(
             zip(

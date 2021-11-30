@@ -7,7 +7,7 @@ import geopandas as gpd
 import pandas as pd
 from geoalchemy2 import Geometry, WKTElement
 from geopandas import GeoSeries
-from postgres_cli.upload_geoJson_file import (
+from postgres_cli.upload_one_file.upload_geoJson_file import (
     count_number_of_rows,
     extract_info,
     find_ortho_of_the_label,
@@ -17,21 +17,7 @@ from shapely.geometry import Polygon, geo
 from sqlalchemy import *
 
 
-def main():
-    parser = argparse.ArgumentParser(description="Process.")
-    parser.add_argument("initial_path", type=str, help="Initial path of the NAS.")
-    parser.add_argument(
-        "file", type=str, help="Path to the file, does not have to be the full path. "
-    )
-
-    parser.add_argument(
-        "-s",
-        "--show_data",
-        action="store_true",
-        help="Optional comment to show the data or directly upload",
-    )
-
-    args = parser.parse_args()
+def main_geoJson(args):
 
     # Creating SQLAlchemy's engine to use
     engine = create_engine(
@@ -119,4 +105,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    main_geoJson()

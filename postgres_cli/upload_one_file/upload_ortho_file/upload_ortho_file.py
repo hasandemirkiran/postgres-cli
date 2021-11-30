@@ -4,6 +4,7 @@ import uuid
 import pandas as pd
 import pprint
 
+
 def pick_from_ortho_dict(url):
     ortho_list_to_upload = []
 
@@ -43,36 +44,30 @@ def pick_from_ortho_dict(url):
 
     return ortho_df
 
-def main():
-    parser = argparse.ArgumentParser(description="Process.")
-    parser.add_argument("initial_path", type=str, help="Initial path of the NAS.")
-    parser.add_argument(
-        "file", type=str, help="Path to the file"
-    )
-    parser.add_argument(
-        "-s",
-        "--show_data",
-        action="store_true",
-        help="Optional comment to show the data or directly upload",
-    )
-    args = parser.parse_args()
+
+def main_ortho(args):
+
     engine = create_engine(
         "postgresql://postgres:PdUfpcWSYh4y3Cg@geodb.c6pejgcymcj0.eu-central-1.rds.amazonaws.com:5432/postgres"
     )
     url = args.initial_path + args.file
+
     ortho_df = pick_from_ortho_dict(url)
-    
+
     if args.show_data:
         pprint.pprint(ortho_df)
     else:
         ortho_df.rename(
-            columns={"region_part": "name", "date": "recording_start_date"}, inplace=True
+            columns={"region_part": "name", "date": "recording_start_date"},
+            inplace=True,
         )
         ortho_df_to_upload = ortho_df[
             ["id", "name", "gsd", "resolution", "recording_start_date", "url"]
         ]
-        ortho_df_to_upload.to_sql("raster_info", con=engine, if_exists="append", index=False)
+        ortho_df_to_upload.to_sql(
+            "raster_info", con=engine, if_exists="append", index=False
+        )
 
 
-if __name__ == '__main__':
-    main()
+if __name__ == "__main__":
+    main_ortho()
