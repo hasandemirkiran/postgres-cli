@@ -17,6 +17,18 @@ def get_data_geoJson(
 
     url = url_tuple[0]
 
+    user_id_dict = {
+        'david': 1,
+        'christian': 2,
+        'felix': 3,
+        'milena': 4,
+        'sarah': 5,
+        'hasan': 6,
+        'beyrem': 7,
+        'luca': 8,
+
+    }
+
     class_dict = {
         "Douglas": 0,
         "Fir": 1,
@@ -56,6 +68,16 @@ def get_data_geoJson(
     name = url.split(r"/")[-1].split("__")[1]
     label_session_table_name.append(name)
 
+    label_session_creator_user_id = []
+    user_check = url.split("/")[-1].split("__")
+    for x in user_check:
+        url_part = str(x.lower())
+        if url_part in user_id_dict:
+            label_session_creator_user_id.append(int(user_id_dict[url_part]))
+            break
+    if not label_session_creator_user_id:
+        label_session_creator_user_id.append(-1)
+
     label_session_table_df = gpd.GeoDataFrame(
         list(
             zip(
@@ -63,9 +85,10 @@ def get_data_geoJson(
                 label_session_table_name,
                 label_session_table_session_area,
                 label_session_table_raster_info_id,
+                label_session_creator_user_id,
             )
         ),
-        columns=["id", "name", "geom", "raster_info_id"],
+        columns=["id", "name", "geom", "raster_info_id", "creator_user_id"],
     )
 
     # --- label table entries ---
@@ -150,10 +173,10 @@ def get_data_geoJson(
 if __name__ == "__main__":
     url = repr(
         os.path.abspath(
-            r"c:\Users\hasan\OneDrive\Masaüstü\Label__Dist_12_13__winter__v2.geojson"
+            '/mnt/nas/gis_data/customers/Blauwald/Duttenstein/image_processing_data/labels/Label__Duttenstein__sarah__v1.geojson'
         )
     )[1:-1]
-    url_tuple = (url, 993280764)
+    url_tuple = (url, 1514098108)
     label_session_table_number_of_rows = count_number_of_rows.count_rows_of_table(
         "label_session"
     )

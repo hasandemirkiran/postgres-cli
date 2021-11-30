@@ -57,7 +57,7 @@ def main():
     )
     args = parser.parse_args()
     engine = create_engine(
-        "postgresql://postgres:PdUfpcWSYh4y3Cg@geodb.c6pejgcymcj0.eu-central-1.rds.amazonaws.com:5432/postgres_backup"
+        "postgresql://postgres:PdUfpcWSYh4y3Cg@geodb.c6pejgcymcj0.eu-central-1.rds.amazonaws.com:5432/postgres"
     )
     url = args.initial_path + args.file
     ortho_df = pick_from_ortho_dict(url)
