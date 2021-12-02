@@ -1,6 +1,6 @@
 # Postgres CLI
 
-Postgres CLI to upload Postgis/PostgreSQL
+Postgres CLI to upload Postgis/PostgreSQL using Poetry and argparse
 
 ## Description
 
